@@ -11,7 +11,7 @@ import {
 import { NavLink } from 'react-router-dom';
 
 
-const Sidebar = ({children}) => {
+const StaffSidebar = ({children}) => {
     const[isOpen ,setIsOpen] = useState(false);
     const toggle = () => setIsOpen (!isOpen);
     const menuItem=[
@@ -69,4 +69,4 @@ const Sidebar = ({children}) => {
     );
 };
 
-export default Sidebar;
+export default StaffSidebar;
