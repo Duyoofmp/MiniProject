@@ -26,7 +26,6 @@ const App = () => {
   return (
     <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
 
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Managestaff" element={<Managestaff />} />
@@ -48,7 +47,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
 
 
-          <Route path="/loginDashboard" element={<Roles />} />
+          <Route path="/" element={<Roles />} />
           <Route path="/employeeLogin" element={<EmpLogin />} />
           <Route path="/managerlogin" element={<ManagerSignInOut />} />
         
