@@ -1,10 +1,9 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
+import { NavLink } from 'react-router-dom';
 
-function Jst() {
-    prompt("Enter information about the staff")
-    
-}
+
+
 const ManageProducts = () => {
     return (
         <Sidebar name1="Dashboard" name2="ManageStaff" name3="ViewReportedIssue" name4="ManageContatcs" name5="ManageProducts" name6="ViewChangeRequest" name7="ViewRankList">
@@ -17,7 +16,9 @@ const ManageProducts = () => {
                 
                         
                 </div>
-                <button  className='b' onClick={Jst}>Add product</button>
+                
+                <NavLink to="/AddProduct" key={1} className="link" activeclassName="active">  <button  className='b' >Add Products</button>  </NavLink>
+
             <table border={5} width={1000} cellPadding={20}>
                 <tr height={70}>
                     <th>Number</th>

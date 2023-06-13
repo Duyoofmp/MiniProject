@@ -1,11 +1,9 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
+import { NavLink } from 'react-router-dom';
 
 import './b.css';
-function Jst() {
-    prompt("Enter information about the staff")
-    
-}
+
 const Managestaff = () => {
     return (
         <Sidebar name1="Dashboard" name2="ManageStaff" name3="ViewReportedIssue" name4="ManageContatcs" name5="ManageProducts" name6="ViewChangeRequest" name7="ViewRankList">
@@ -19,7 +17,8 @@ const Managestaff = () => {
                 
                         
                 </div>
-                <button  className='b' onClick={Jst}>Add Staffs</button>  
+                <NavLink to="/AddStaff" key={1} className="link" activeclassName="active">  <button  className='b' >Add Staffs</button>  </NavLink>
+
             <table border={5} width={1200} cellPadding={20}>
                 <tr height={100}>
                     <th>no</th>

@@ -9,6 +9,8 @@ import ManageContatcs from './pages/ManageContatcs.jsx';
 import ManageProducts from './pages/ManageProducts.jsx';
 import ViewChangeRequest from './pages/ViewChangeRequest.jsx';
 import ViewRankList from './pages/ViewRankList.jsx';
+import AddStaff from './pages/AddStaff.jsx';
+import AddProduct from './pages/AddProduct';
 
 import StaffDashboard from './pages/StaffDashboard.jsx';
 import Analytics from './pages/StaffAnalytics.jsx';
@@ -33,6 +35,10 @@ const App = () => {
           <Route path="/ManageContatcs" element={<ManageContatcs />} />
           <Route path="/ViewChangeRequest" element={<ViewChangeRequest />} />
           <Route path="/ViewRankList" element={<ViewRankList />} />
+          <Route path="/AddStaff" element={<AddStaff />} />
+          <Route path="/AddProduct" element={<AddProduct />} />
+
+
 
           <Route path="/staffdashboard" element={<StaffDashboard />} />
           <Route path="/comment" element={<Comment />} />
