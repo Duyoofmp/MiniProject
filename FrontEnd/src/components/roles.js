@@ -12,10 +12,10 @@ export default function Roles(){
     return(
         <Grid>
             <Grid style={gridStyle}>
-            <Button href="/Manager" id="manager" type="submit" color="primary" variant='contained' size="large" style={buttonStyle} startIcon={<PersonIcon />}>MANAGER</Button><br/>
+            <Button href="/managerlogin" id="manager" type="submit" color="primary" variant='contained' size="large" style={buttonStyle} startIcon={<PersonIcon />}>MANAGER</Button><br/>
             </Grid>
             <Grid style={grid2Style}>
-            <Button href="/Employee" id="staff" type="submit" color="primary" variant='contained' size="large" style={buttonStyle} fontSize="large" startIcon={<PeopleAltIcon />}>STAFF</Button><br/>
+            <Button href="/employeeLogin" id="staff" type="submit" color="primary" variant='contained' size="large" style={buttonStyle} fontSize="large" startIcon={<PeopleAltIcon />}>STAFF</Button><br/>
             </Grid>
         </Grid>
     )
