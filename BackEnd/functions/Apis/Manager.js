@@ -33,7 +33,7 @@ app.post('/LoginManager', async (req, res) => {
   app.post('/CreateStaff', async (req, res) => {
     const Man = require("../Services/Manager");
     return Man.CreateStaff(req, res);
-  })
+  })  
 
 
 

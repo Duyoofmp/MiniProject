@@ -1,6 +1,6 @@
 const dataHandling = require("../functions")
 const ServiceAccount = require("../config/ServiceAccount.json")
-
+const com=require("../common")
 const admin = require('firebase-admin');
 
 
@@ -14,7 +14,8 @@ async function LoginStaff(req, res) {
 
         if(staffcheck.length===1){
        
-         return res.json(staffcheck[0].DocId)
+            const token=await com.GenerateToken({StaffId:staffcheck[0].DocId,...req.body})
+         return res.json(token)
         
         }else{
             return res.json(false)
