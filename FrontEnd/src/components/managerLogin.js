@@ -17,23 +17,26 @@ export default function ManagerLogin(){
     }
     function MLogin(username, password){
         const postData ={
-            name: username,
-            password: password
+            Email: username,
+            Password: password
             
         }
-    
         publicGateway.post('/manager/LoginManager',postData)
         .then((res)=>{
-            console.log(res)
-            const resp = res
-            localStorage.setItem("accessToken", resp)
-            navigate("/Dashboard")
+            console.log(res.data)
+            localStorage.setItem("accessToken", res.data)
+            if(res.data!==false){
+            return  navigate("/Dashboard")
+            }else{
+             return alert("invalid credentials!!")
+            }
         })
         .catch((err)=>{
             console.log(err)
         })
+      }
+  
     
-    }
     return(
         <Grid>
             <Paper style={paperStyle}>
@@ -44,7 +47,7 @@ export default function ManagerLogin(){
                 
                 <Formik initialValues={initialValues} onSubmit={(values) => MLogin(values.username, values.password)}>
   {(props) => (
-    <Form>
+    <Form >
       <Field
         as={TextField}
         onChange={props.handleChange}
@@ -73,7 +76,7 @@ export default function ManagerLogin(){
         required
       />
       <br />
-      <Button type="submit" color="primary" variant="contained" style={buttonStyle} fullWidth>
+      <Button  type="submit"  color="primary" variant="contained" style={buttonStyle} fullWidth>
         Login
       </Button>
       <br />

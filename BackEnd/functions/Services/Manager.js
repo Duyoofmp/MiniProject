@@ -27,8 +27,8 @@ async function LoginManager(req, res) {
          
 
         if(manData.Password===Password){
-        // token=await admin.auth().createCustomToken(createUser.uid)
-         return res.json(createUser.uid)
+       const token=await admin.auth().createCustomToken(createUser.uid)
+         return res.json(token)
         
         }else{
             return res.json(false)
