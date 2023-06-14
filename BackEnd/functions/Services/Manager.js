@@ -12,7 +12,8 @@ async function RegisterManager(req, res) {
         const createUser=await  admin.auth().createUser({email:Email,password: Password,phoneNumber:String(PhoneNo),displayName:Name});
         await dataHandling.Create("Managers",{...req.body},createUser.uid)
         console.log(createUser.uid)
-        return res.json(true)
+       const token=await admin.auth().createCustomToken(createUser.uid)
+        return res.json({token:token})
     } catch (error) {
         console.log(error)
         return res.json(error)
