@@ -11,9 +11,7 @@ async function LoginStaff(req, res) {
         const {Email,Password}=req.body;
         const staffcheck=await dataHandling.Read("Staffs",undefined,undefined,undefined,1,["Email","==",Email,"Password","==",Password])
          console.log(staffcheck[0].DocId)
-
         if(staffcheck.length===1){
-       
             const token=await com.GenerateToken({StaffId:staffcheck[0].DocId,...req.body})
          return res.json(token)
         
@@ -26,7 +24,20 @@ async function LoginStaff(req, res) {
     }
 }
 
+async function Update(req, res) {
+    req.body.index = Date.now()
+      await dataHandling.Update("Staffs", req.body, req.body.DocId)
+      return res.json(true)
+  }
+
+  async function Read(req, res) {
+    const data = await dataHandling.Read("Staffs", req.body.DocId, req.body.index, req.body.Keyword, req.body.Limit);
+    return res.json(data)
+  }
+
 
 module.exports = {
-    LoginStaff
+    LoginStaff,
+    Update,
+    Read
 }

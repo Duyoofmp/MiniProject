@@ -48,7 +48,7 @@ async function CreateStaff(req, res) {
         console.log(req.body.Email)
         console.log(checkuser)
          if(checkuser.length===0){
-            const manData=await dataHandling.Create("Staffs",{...req.body})
+            const manData=await dataHandling.Create("Staffs",{index:Date.now(),...req.body})
             return res.json(true)
         }else{
             return res.json(false)

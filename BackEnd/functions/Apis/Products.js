@@ -15,28 +15,15 @@ app.use(cors({ origin: true }));
 //app.use(common.decodeIDToken)
 ///---------------------------------------------------------------
 
-app.post('/LoginStaff', async (req, res) => {
-    const Staff = require("../Services/Staff");
-    return Staff.LoginStaff(req, res);
-  })
-
-  app.post('/UpdateStaff', async (req, res) => {
-    const Staff = require("../Services/Staff");
-    return Staff.Update(req, res);
-  })
-
-  app.post('/ViewStaffs', async (req, res) => {
-    const Staff = require("../Services/Staff");
-    return Staff.Read(req, res);
+app.post('/CreateProduct', async (req, res) => {
+    const Product = require("../Services/Products");
+    return Product.Create(req, res);
   })
   
 
 
 
-
-
-
-exports.staff = functions.runWith({ memory: '128MB' }).region("asia-south1").https.onRequest(app);
+exports.product = functions.runWith({ memory: '128MB' }).region("asia-south1").https.onRequest(app);
 
 
 

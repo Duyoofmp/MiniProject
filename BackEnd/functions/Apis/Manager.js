@@ -35,6 +35,11 @@ app.post('/LoginManager', async (req, res) => {
     return Man.CreateStaff(req, res);
   })  
 
+  app.post('/ViewStaffs', async (req, res) => {
+    const Man = require("../Services/Staff");
+    return Man.Read(req, res);
+  })
+
 
 
 
