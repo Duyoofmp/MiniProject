@@ -49,7 +49,7 @@ const Dashboard = () => {
               <td>{staff.Name}</td>
               <td>{staff.Designation}</td>
               <td>{staff.Email}</td>
-              <td>0</td>
+              <td>B</td>
               <td>0</td>
               <td>0</td>
             </tr>
