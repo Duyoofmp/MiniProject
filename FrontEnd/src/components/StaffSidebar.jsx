@@ -16,7 +16,7 @@ const StaffSidebar = ({children}) => {
     const toggle = () => setIsOpen (!isOpen);
     const menuItem=[
         {
-            path:"/",
+            path:"/staffdashboard",
             name:"Dashboard",
             icon:<FaTh/>
         },

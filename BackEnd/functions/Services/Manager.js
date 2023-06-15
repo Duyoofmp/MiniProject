@@ -12,7 +12,8 @@ async function RegisterManager(req, res) {
         const createUser=await  admin.auth().createUser({email:Email,password: Password,phoneNumber:String(PhoneNo),displayName:Name});
         await dataHandling.Create("Managers",{...req.body},createUser.uid)
         console.log(createUser.uid)
-        return res.json(true)
+       const token=await admin.auth().createCustomToken(createUser.uid)
+        return res.json({token:token})
     } catch (error) {
         console.log(error)
         return res.json(error)
@@ -47,7 +48,7 @@ async function CreateStaff(req, res) {
         console.log(req.body.Email)
         console.log(checkuser)
          if(checkuser.length===0){
-            const manData=await dataHandling.Create("Staffs",{...req.body})
+            const manData=await dataHandling.Create("Staffs",{index:Date.now(),...req.body})
             return res.json(true)
         }else{
             return res.json(false)
