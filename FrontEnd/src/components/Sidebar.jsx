@@ -55,7 +55,9 @@ const Sidebar = (prop) => {
             path:"/"+prop.name7,
             name:prop.name7,
             icon:<  FaChartBar/>
-        }
+        },
+
+        
     ]
     return (
         <div className="container">

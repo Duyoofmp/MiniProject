@@ -3,7 +3,7 @@ import './a.css';
 import Sidebar from '../components/Sidebar';
 const Dashboard= () => {
     return (
-        <Sidebar name1="Dashboard" name2="ManageStaff" name3="ViewReportedIssue" name4="ManageContatcs" name5="ManageProducts" name6="ViewChangeRequest" name7="ViewRankList">
+        <Sidebar name1="Dashboard" name2="Manage Staff" name3="View Reported Issue" name4="Manage Contatcs" name5="Manage Products" name6="View Change Request" name7="View Rank List">
         <div>
         
             <div class="a">
