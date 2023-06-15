@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import Managestaff from './pages/ManageStaff';
 import ViewReportedIssue from './pages/ViewReportedIssue.jsx';
 import ManageContatcs from './pages/ManageContatcs.jsx';
+import managerStaffDetails from './pages/managerStaffDetails'
 import ManageProducts from './pages/ManageProducts.jsx';
 import ViewChangeRequest from './pages/ViewChangeRequest.jsx';
 import ViewRankList from './pages/ViewRankList.jsx';
@@ -18,9 +19,11 @@ import Comment from './pages/StaffComment.jsx';
 import Product from './pages/StaffProduct.jsx';
 import ProductList from './pages/StaffProductList.jsx';
 import Profile from './pages/StaffProfile.jsx';
+
 import Roles from './components/roles';
 import EmpLogin from './components/empLogin';
 import ManagerSignInOut from './container/SignInOut';
+import StaffDetails from './pages/managerStaffDetails';
 
 const App = () => {
   return (
@@ -32,6 +35,7 @@ const App = () => {
           <Route path="/ViewReportedIssue" element={<ViewReportedIssue />} />
           <Route path="/ManageProducts" element={<ManageProducts />} />
           <Route path="/ManageContatcs" element={<ManageContatcs />} />
+          <Route path="/managerStaffDetails" element={<StaffDetails/>}/>
           <Route path="/ViewChangeRequest" element={<ViewChangeRequest />} />
           <Route path="/ViewRankList" element={<ViewRankList />} />
           <Route path="/AddStaff" element={<AddStaff />} />
@@ -46,6 +50,7 @@ const App = () => {
           <Route path="/product" element={<Product />} />
           <Route path="/productList" element={<ProductList />} />
           <Route path="/profile" element={<Profile />} />
+          
 
 
           <Route path="/" element={<Roles />} />
