@@ -19,7 +19,7 @@ const StaffDetails = () => {
             className="profile-photo"
           />
           <h2>IHJAZUL ASLAM AT</h2>
-          <p>Age: 22</p>
+          <p>Age: 22</p> 
           <p>Gender:Male</p>
           <p>Contact Number: 1234567890</p>
         </div>

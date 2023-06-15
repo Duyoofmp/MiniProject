@@ -29,7 +29,6 @@ const AddStaff= () => {
            alert("successfully added staff")
             }else{
            alert("Error occured")
-
             }
         })
         .catch((err)=>{
