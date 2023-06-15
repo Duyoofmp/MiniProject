@@ -2,6 +2,7 @@
 const logger=require('harislogger')
 const admin = require("firebase-admin");
 const db = admin.firestore();
+const functions = require('firebase-functions');
 
 
 
@@ -58,7 +59,7 @@ async function Delete(collectionName, docName) {
     });
 }
 
-async function Read(collectionName, docName, index, Keyword, limit = 10, where, orderBy = [true, "index", "desc"]) {
+async function Read(collectionName, docName, index, Keyword, limit = 1000, where, orderBy = [true, "index", "desc"]) {
 
     let query;
     if (docName === undefined || docName === "") {
@@ -197,6 +198,33 @@ function substract(b, c) {
     return fv
 
 }
+
+async function WhereGet(collectionName, Field, data, DocId) {
+    return new Promise(async (resolve, reject) => {
+        return db
+            .collection(collectionName)
+            .where(Field, "==", data)
+            .limit(1)
+            .get()
+            .then((snap) => {
+                if (snap.size === 0) {
+                    resolve(true);
+                } else {
+                    if (DocId !== undefined) {
+                        if (snap.docs[0].id === DocId) {
+                            resolve(true);
+                        }
+                    }
+                    resolve(false);
+                }
+            })
+            .catch((err) => {
+                functions.logger.error(err);
+                reject(false);
+            });
+    });
+}
+
 
 
 // async function toBase64(ImgUrl) {
@@ -353,6 +381,8 @@ module.exports= {
     Update,
     Delete,
     Read,
+
+    WhereGet,
 
     Check,
     CheckEntityExists,

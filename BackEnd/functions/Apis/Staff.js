@@ -30,9 +30,21 @@ app.post('/LoginStaff', async (req, res) => {
     return Staff.Read(req, res);
   })
   
+  app.post('/GetProductsOfStaff', async (req, res) => {
+    const Staff = require("../Services/Staff");
+    return Staff.GetProductsOfStaff(req, res);
+  })
 
 
-
+  app.post('/GetContactsOfProduct', async (req, res) => {
+    const Staff = require("../Services/Staff");
+    return Staff.ContactListOfProduct(req, res);
+  })
+  
+  app.post('/SetLeadStatus', async (req, res) => {
+    const AssignProduct = require("../Services/Products");
+    return AssignProduct.SetAStatus(req, res);
+  })
 
 
 
