@@ -24,7 +24,7 @@ const Managestaff = () => {
   }, []);
 
   const navigateToPage = (staffObj) => {
-    navigate('/ManagerStaffDetails',staffObj);
+    navigate('/managerStaffDetails',staffObj);
   };
 
   return (
