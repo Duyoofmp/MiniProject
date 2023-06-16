@@ -75,4 +75,15 @@ body {
   margin-bottom: 10px;
 }
 
+.assign-products-button {
+  background-color: #FF7F50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+
 
