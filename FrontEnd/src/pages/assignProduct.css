@@ -29,6 +29,9 @@
     align-items: center;
     justify-content: center;
   }
+  .product-card:hover{
+    background-color: #4a90e2;
+  }
   
   .product-card.selected {
     background-color: #4a90e2;
