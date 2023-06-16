@@ -24,6 +24,9 @@ import Roles from './components/roles';
 import EmpLogin from './components/empLogin';
 import ManagerSignInOut from './container/SignInOut';
 import StaffDetails from './pages/managerStaffDetails';
+import asiignProducts from './pages/assignProduct'
+import AssignProduct from './pages/assignProduct';
+import ContactList from './pages/assignContacts';
 
 const App = () => {
   return (
@@ -36,6 +39,8 @@ const App = () => {
           <Route path="/ManageProducts" element={<ManageProducts />} />
           <Route path="/ManageContatcs" element={<ManageContatcs />} />
           <Route path="/managerStaffDetails" element={<StaffDetails/>}/>
+          <Route path="/assignProduct" element={<AssignProduct/>}/>
+          <Route path="/assignContact" element={<ContactList/>}/>
           <Route path="/ViewChangeRequest" element={<ViewChangeRequest />} />
           <Route path="/ViewRankList" element={<ViewRankList />} />
           <Route path="/AddStaff" element={<AddStaff />} />
