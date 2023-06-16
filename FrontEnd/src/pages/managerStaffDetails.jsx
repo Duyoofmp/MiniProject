@@ -64,10 +64,10 @@ const StaffDetails = () => {
         {activeOption === 'assignedProducts' && (
           <div>
             <h3>Assigned Products</h3>
-            <div className="product-card">
+            <div className="product-card1">
               <p>Product 1</p>
             </div>
-            <div className="product-card">
+            <div className="product-card1">
               <p>Product 2</p>
             </div>
           </div>
@@ -75,10 +75,10 @@ const StaffDetails = () => {
         {activeOption === 'completedProducts' && (
           <div>
             <h3>Completed Products</h3>
-            <div className="product-card">
+            <div className="product-card1">
               <p>Product 3</p>
             </div>
-            <div className="product-card">
+            <div className="product-card1">
               <p>Product 4</p>
             </div>
           </div>
