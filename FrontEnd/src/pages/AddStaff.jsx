@@ -22,13 +22,25 @@ const AddStaff= () => {
             Designation:designation,
             Password:password
         }
-        publicGateway.post('/manager/CreateStaff',staffData)
-        .then((res)=>{
+        const token = localStorage.getItem('accessToken');
+    console.log(token,"blaaaaa");
+    publicGateway
+      .post(
+        '/manager/CreateStaff',
+        staffData,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      ) .then((res)=>{
             console.log(res.data)
-            if(res.data===true){
-           alert("successfully added staff")
-            }else{
+            if(res.data===false){
            alert("Error occured")
+
+            }else{
+           alert("successfully added staff")
+           window.location.reload();
             }
         })
         .catch((err)=>{
@@ -44,15 +56,15 @@ const AddStaff= () => {
                 <fieldset>
                 <legend>Add Staff</legend>
                 <label>Name</label><br></br>
-                <input value={name} onChange={(e)=>{ setName(e.target.value)}} type="text" required="required"/><br></br><br></br>
+                <input value={name} onChange={(e)=>{ setName(e.target.value)}} type="text" required/><br></br><br></br>
                 <label>Designation</label><br></br>
-                <input value={designation} onChange={(e)=>{ setDesignation(e.target.value)}} type="text" required="required" /><br></br><br></br>
+                <input value={designation} onChange={(e)=>{ setDesignation(e.target.value)}} type="text" required /><br></br><br></br>
                 <label>Password</label><br></br>
-                <input value={password} onChange={(e)=>{ setPassword(e.target.value)}} type="password" required="required" /><br></br><br></br>
+                <input value={password} onChange={(e)=>{ setPassword(e.target.value)}} type="password" required /><br></br><br></br>
                 <label>Email</label><br></br>
-                <input value={email} onChange={(e)=>{ setEmail(e.target.value)}} type="email" required="required" /><br></br><br></br>
+                <input value={email} onChange={(e)=>{ setEmail(e.target.value)}} type="email" required /><br></br><br></br>
                 <label>Phone no</label><br></br>
-                <input value={phoneNo} onChange={(e)=>{ setPhoneNo(e.target.value)}} type="number" required="required" /><br></br><br></br>
+                <input value={phoneNo} onChange={(e)=>{ setPhoneNo(e.target.value)}} type="number" required /><br></br><br></br>
                 <input onClick={addStaff} type="button" value="submit" />
                 <input type="reset" />
 

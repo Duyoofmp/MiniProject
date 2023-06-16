@@ -31,11 +31,12 @@ async function Update(req, res) {
       return res.json(true)
   }
 
+ 
   async function Read(req, res) {
-    const data = await dataHandling.Read("Staffs", req.body.DocId, req.body.index, req.body.Keyword, req.body.Limit);
+    console.log(req.body)
+    const data = await dataHandling.Read("Staffs", req.body.StaffId, req.body.index, req.body.Keyword);
     return res.json(data)
   }
-
 
   async function GetProductsOfStaff(req, res) {
     const temp = [];

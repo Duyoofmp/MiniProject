@@ -43,7 +43,6 @@ async function Create(req, res) {
   async function Read(req, res) {
     const data = await dataHandling.Read("Products", req.body.DocId, req.body.index, req.body.Keyword);
     return res.json(data)
-  
   }
 
   
@@ -52,7 +51,7 @@ async function AssignProduct(req, res) {
     const today = moment().tz('Asia/Kolkata');
     
         req.body.Contacts.forEach(docs => {
-            temp.push(db.collection("Lead").doc(docs.ContactId + "_" + docs.ProductId).set({taffId: req.body.StaffId, Status: "Open", index: Date.now(), Date: today.format('YYYY-MM-DD')}, { "merge": true }))
+            temp.push(db.collection("Lead").doc(docs.ContactId + "_" + docs.ProductId).set({StaffId: req.body.StaffId, Status: "Open", index: Date.now(), Date: today.format('YYYY-MM-DD')}, { "merge": true }))
         })
     
 
