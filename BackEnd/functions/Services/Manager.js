@@ -1,5 +1,6 @@
 const dataHandling = require("../functions")
 const ServiceAccount = require("../config/ServiceAccount.json")
+const com=require("../common")
 
 const admin = require('firebase-admin');
 
@@ -12,7 +13,8 @@ async function RegisterManager(req, res) {
         const createUser=await  admin.auth().createUser({email:Email,password: Password,phoneNumber:String(PhoneNo),displayName:Name});
         await dataHandling.Create("Managers",{...req.body},createUser.uid)
         console.log(createUser.uid)
-       const token=await admin.auth().createCustomToken(createUser.uid)
+        const token=await com.GenerateToken({ManagerId:createUser.uid})
+
         return res.json({token:token})
     } catch (error) {
         console.log(error)
@@ -24,11 +26,13 @@ async function LoginManager(req, res) {
     try {
         const {Email,Password}=req.body;
         const createUser=await  admin.auth().getUserByEmail(Email);
+        // @ts-ignore
         const manData=await dataHandling.Read("Managers",createUser.uid)
          
 
         if(manData.Password===Password){
-       const token=await admin.auth().createCustomToken(createUser.uid)
+            const token=await com.GenerateToken({ManagerId:createUser.uid})
+
          return res.json(token)
         
         }else{
@@ -43,6 +47,7 @@ async function LoginManager(req, res) {
 
 async function CreateStaff(req, res) {
     try {
+        console.log(req.body)
         const checkuser=  await dataHandling.Read("Staffs",undefined,undefined,undefined,1,["Email","==",req.body.Email])
       
         console.log(req.body.Email)

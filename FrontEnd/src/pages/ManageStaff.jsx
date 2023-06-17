@@ -12,8 +12,14 @@ const Managestaff = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
     publicGateway
-      .post('/manager/ViewStaffs')
+      .post('/manager/ViewStaffs',{},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       .then((res) => {
         console.log(res.data);
         setStaffArray(res.data);
@@ -24,7 +30,8 @@ const Managestaff = () => {
   }, []);
 
   const navigateToPage = (staffObj) => {
-    navigate('/managerStaffDetails',staffObj);
+    console.log(staffObj.DocId)
+    navigate('/managerStaffDetails',{state:{StaffId:staffObj.DocId}});
   };
 
   return (
