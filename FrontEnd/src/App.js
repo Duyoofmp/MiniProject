@@ -24,9 +24,12 @@ import Roles from './components/roles';
 import EmpLogin from './components/empLogin';
 import ManagerSignInOut from './container/SignInOut';
 import StaffDetails from './pages/managerStaffDetails';
-import asiignProducts from './pages/assignProduct'
+import assignProducts from './pages/assignProduct'
 import AssignProduct from './pages/assignProduct';
 import ContactList from './pages/assignContacts';
+import ProductDetails from './pages/ProductDetails'
+import AssignStaff from './pages/AssignStaff';
+
 
 const App = () => {
   return (
@@ -45,6 +48,8 @@ const App = () => {
           <Route path="/ViewRankList" element={<ViewRankList />} />
           <Route path="/AddStaff" element={<AddStaff />} />
           <Route path="/AddProduct" element={<AddProduct />} />
+          <Route path="/ProductDetails" element={<ProductDetails/>} />
+          <Route path="/AssignStaff" element={<AssignStaff/>} />
           
 
 

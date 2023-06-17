@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './assignContact.css';
+
 import { publicGateway } from '../services/gateway';
 
 import { useNavigate ,useLocation} from 'react-router-dom';
@@ -7,11 +8,11 @@ import { useNavigate ,useLocation} from 'react-router-dom';
 
 const ContactList = () => {
   const [selectedContacts, setSelectedContacts] = useState([]);
-
   const [contacts,setContacts]=useState([]);
   const location = useLocation()
     
   const navigate = useNavigate();
+
 
   const handleContactSelect = (contactId) => {
     if (selectedContacts.includes(contactId)) {
@@ -27,6 +28,7 @@ const ContactList = () => {
   };
 
   const handleAssignTask = () => {
+
     // Perform the action of assigning the task to the selected contacts
     const token = localStorage.getItem('accessToken');
     console.log(token);
@@ -50,7 +52,7 @@ alert("Error Occured ! ")
       });
     navigate('/')
 
-    console.log('Assigning task to contacts:', selectedContacts);
+
   };
 
   return (

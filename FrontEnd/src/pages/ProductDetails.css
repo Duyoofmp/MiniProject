@@ -4,7 +4,7 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-.customer-details-container {
+.product-details-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,33 +12,51 @@ body {
   background-color: #c2d0e6;
 }
 
-.customer-profile {
+.product-profile {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.profile-photo {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
+.product-photos {
+  display: flex;
+  justify-content: center;
   margin-bottom: 10px;
 }
 
-.customer-nav {
+.product-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.product-details {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-details div.active {
+  display: block;
+}
+
+.product-nav {
   margin-bottom: 20px;
 }
 
-.customer-nav ul {
+.product-nav ul {
   list-style-type: none;
   display: flex;
   justify-content: center;
   padding: 0;
 }
 
-.customer-nav li {
+.product-nav li {
   margin-right: 10px;
   cursor: pointer;
   font-weight: bold;
@@ -48,40 +66,28 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.customer-nav li:hover {
+.product-nav li:hover {
   background-color: #4a90e2;
 }
 
-.customer-nav li.active {
+.product-nav li.active {
   background-color: #4a90e2;
 }
 
-.customer-details {
-  width: 100%;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.staff-card1 {
+    background-color: #e0eaf5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 96%;
 }
 
-.customer-details div.active {
-  display: block;
-}
-
-.product-card1 {
-  background-color: #e0eaf5;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  width: 96%;
-  
-}
-.product-card1:hover{
+.staff-card1:hover {
   background-color: #4a90e2;
   color: white;
 }
 
-.assign-products-button {
+.assign-staff-button {
   background-color: #FF7F50;
   color: #fff;
   border: none;
@@ -90,6 +96,3 @@ body {
   margin-top: 10px;
   cursor: pointer;
 }
-
-
-
