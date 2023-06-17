@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './assignContact.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const ContactList = () => {
   const [selectedContacts, setSelectedContacts] = useState([]);
-
+  const navigate = useNavigate();
   const contacts = [
     { id: 1, name: 'John Doe', email: 'john@example.com' },
     { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
@@ -37,8 +39,7 @@ const ContactList = () => {
   };
 
   const handleAssignTask = () => {
-    // Perform the action of assigning the task to the selected contacts
-    console.log('Assigning task to contacts:', selectedContacts);
+    navigate('/managerStaffDetails');
   };
 
   return (
