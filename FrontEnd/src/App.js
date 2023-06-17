@@ -11,6 +11,7 @@ import ViewChangeRequest from './pages/ViewChangeRequest.jsx';
 import ViewRankList from './pages/ViewRankList.jsx';
 import AddStaff from './pages/AddStaff.jsx';
 import AddProduct from './pages/AddProduct';
+import AddContact from './pages/AddContacts';
 
 import StaffDashboard from './pages/StaffDashboard.jsx';
 import Analytics from './pages/StaffAnalytics.jsx';
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/ViewRankList" element={<ViewRankList />} />
           <Route path="/AddStaff" element={<AddStaff />} />
           <Route path="/AddProduct" element={<AddProduct />} />
+          <Route path="/AddContact" element={<AddContact/>}/>
           
 
 
