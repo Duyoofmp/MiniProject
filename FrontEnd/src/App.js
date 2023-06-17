@@ -12,6 +12,7 @@ import ViewChangeRequest from './pages/ViewChangeRequest.jsx';
 import ViewRankList from './pages/ViewRankList.jsx';
 import AddStaff from './pages/AddStaff.jsx';
 import AddProduct from './pages/AddProduct';
+import AddContacts from './pages/AddContacts';
 
 import StaffDashboard from './pages/StaffDashboard.jsx';
 import Analytics from './pages/StaffAnalytics.jsx';
@@ -24,12 +25,6 @@ import Roles from './components/roles';
 import EmpLogin from './components/empLogin';
 import ManagerSignInOut from './container/SignInOut';
 import StaffDetails from './pages/managerStaffDetails';
-import assignProducts from './pages/assignProduct'
-import AssignProduct from './pages/assignProduct';
-import ContactList from './pages/assignContacts';
-import ProductDetails from './pages/ProductDetails'
-import AssignStaff from './pages/AssignStaff';
-
 
 const App = () => {
   return (
@@ -42,15 +37,12 @@ const App = () => {
           <Route path="/ManageProducts" element={<ManageProducts />} />
           <Route path="/ManageContatcs" element={<ManageContatcs />} />
           <Route path="/managerStaffDetails" element={<StaffDetails/>}/>
-          <Route path="/assignProduct" element={<AssignProduct/>}/>
-          <Route path="/assignContact" element={<ContactList/>}/>
           <Route path="/ViewChangeRequest" element={<ViewChangeRequest />} />
           <Route path="/ViewRankList" element={<ViewRankList />} />
           <Route path="/AddStaff" element={<AddStaff />} />
           <Route path="/AddProduct" element={<AddProduct />} />
-          <Route path="/ProductDetails" element={<ProductDetails/>} />
-          <Route path="/AssignStaff" element={<AssignStaff/>} />
-          
+          <Route path="/AddContacts" element={<AddContacts />} />
+
 
 
 
