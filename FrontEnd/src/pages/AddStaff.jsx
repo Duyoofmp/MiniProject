@@ -40,7 +40,12 @@ const AddStaff= () => {
 
             }else{
            alert("successfully added staff")
-           window.location.reload();
+           setName('');
+           setEmail('');
+           setDesignation('');
+           setPassword('');
+           setPhoneNo('');
+
             }
         })
         .catch((err)=>{

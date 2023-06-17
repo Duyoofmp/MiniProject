@@ -22,6 +22,10 @@ const product = require("./Apis/Products");
 exports.product = product.product;
 
 
+const contact = require("./Apis/Contacts");
+exports.contact = contact.contact;
+
+
 
 
 

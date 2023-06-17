@@ -32,7 +32,7 @@ const StaffDetails = () => {
   };
 
   const handleAssignProductsClick = () => {
-    navigate('/assignProduct',{state:{}});
+    navigate('/assignProduct',{state:{StaffId:location.state.StaffId}});
   };
 
   return (
