@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState,useEffect } from 'react';
+import { useNavigate ,useLocation} from 'react-router-dom';
 import './assignProduct.css';
+import { publicGateway } from '../services/gateway';
+
 
 const AssignProduct = () => {
-  const [selectedProduct, setSelectedProduct] = useState('');
+const [products,setProducts]=useState([])
+const [selectedProduct, setSelectedProduct] = useState('');
   const [isAssignButtonEnabled, setAssignButtonEnabled] = useState(false);
+  const location = useLocation()
+
   const navigate = useNavigate();
-
-  const products = [
-    { id: 1, name: 'Product 1' },
-    { id: 2, name: 'Product 2' },
-    { id: 3, name: 'Product 3' },
-    { id: 4, name: 'Product 4' },
-    { id: 5, name: 'Product 5' },
-    { id: 6, name: 'Product 6' },
-    { id: 7, name: 'Product 7' },
-    { id: 8, name: 'Product 8' },
-    { id: 9, name: 'Product 9' },
-    { id: 10, name: 'Product 10' },
-    { id: 11, name: 'Product 11' },
-    { id: 12, name: 'Product 12' },
-    { id: 13, name: 'Product 13' },
-    { id: 14, name: 'Product 14' },
-    { id: 15, name: 'Product 15' },
-    { id: 16, name: 'Product 16' },
-    { id: 17, name: 'Product 17' },
-    // Add more products here
-  ];
-
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    publicGateway
+      .post('/product/ViewProducts',{},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  
+  
   const handleProductSelect = (productId) => {
     setSelectedProduct(productId);
     setAssignButtonEnabled(true);
@@ -35,7 +37,7 @@ const AssignProduct = () => {
 
   const handleAssignButtonClick = () => {
     // Navigate to the next page or perform desired action
-    navigate('/assignContact');
+    navigate('/assignContact', { state: { ProductId: selectedProduct,StaffId:location.state.StaffId } });
   };
 
   return (
@@ -44,13 +46,13 @@ const AssignProduct = () => {
       <div className="product-card-container">
         {products.map((product) => (
           <div
-            key={product.id}
+            key={product.DocId}
             className={`product-card ${
-              selectedProduct === product.id ? 'selected' : ''
+              selectedProduct === product.DocId? 'selected' : ''
             }`}
-            onClick={() => handleProductSelect(product.id)}
+            onClick={() => handleProductSelect(product.DocId)}
           >
-            <p>{product.name}</p>
+            <p>{product.Name}</p>
           </div>
         ))}
       </div>

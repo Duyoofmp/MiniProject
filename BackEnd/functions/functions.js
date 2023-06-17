@@ -59,7 +59,7 @@ async function Delete(collectionName, docName) {
     });
 }
 
-async function Read(collectionName, docName, index, Keyword, limit = 1000, where, orderBy = [true, "index", "desc"]) {
+async function Read(collectionName, docName=undefined, index, Keyword, limit = 1000, where, orderBy = [true, "index", "desc"]) {
 
     let query;
     if (docName === undefined || docName === "") {
@@ -90,10 +90,7 @@ async function Read(collectionName, docName, index, Keyword, limit = 1000, where
         try {
             if (docName === undefined || docName === "") {
                 const temp = [];
-                if (limit !== false) {
-                    query = query.limit(limit);
-                }
-                const data = await query.get();
+                const data = await query.limit(limit).get();
                 data.forEach((doc) => {
                     if (doc.exists) {
                         const r = doc.data();
@@ -114,8 +111,9 @@ async function Read(collectionName, docName, index, Keyword, limit = 1000, where
             }
         }
         catch (error) {
-            logger.log(error);
-            reject(error);
+            logger.error(error);
+            logger.warn(error);
+            reject(false);
         }
     });
 }

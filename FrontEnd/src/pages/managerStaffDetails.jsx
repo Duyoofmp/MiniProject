@@ -1,8 +1,29 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState,useEffect } from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
 import './managerStaffDetails.css';
+import { publicGateway } from '../services/gateway';
+
 
 const StaffDetails = () => {
+  const [staffDetails, setStaffDetails] = useState({});
+  const location = useLocation()
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    publicGateway
+      .post('/manager/ViewStaffs',{StaffId:location.state.StaffId},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setStaffDetails(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const [activeOption, setActiveOption] = useState('assignedProducts');
   const navigate = useNavigate();
 
@@ -11,7 +32,7 @@ const StaffDetails = () => {
   };
 
   const handleAssignProductsClick = () => {
-    navigate('/assignProduct');
+    navigate('/assignProduct',{state:{StaffId:location.state.StaffId}});
   };
 
   return (
@@ -26,10 +47,11 @@ const StaffDetails = () => {
               className="profile-photo"
             />
             <div className="profile-details">
-              <h2>IHJAZUL ASLAM AT</h2>
-              <p>Age: 22</p>
-              <p>Gender: Male</p>
-              <p>Contact Number: 1234567890</p>
+              <h2>{staffDetails.Name}</h2>
+              <p>Designation: {staffDetails.Designation}</p>
+
+              <p>Email: {staffDetails.Email}</p>
+              <p>Contact Number: {staffDetails.PhoneNo}</p>
             </div>
           </div>
           <button className="assign-products-button" onClick={handleAssignProductsClick}>

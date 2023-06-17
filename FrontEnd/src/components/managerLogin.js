@@ -21,10 +21,10 @@ export default function ManagerLogin(){
             Password: password
             
         }
-        publicGateway.post('/manager/LoginManager',postData)
+        publicGateway.post('/LoginForManager/LoginManager',postData)
         .then((res)=>{
             console.log(res.data)
-            localStorage.setItem("accessToken", res.data)
+            localStorage.setItem("accessToken", res.data.Token)
             if(res.data!==false){
             return  navigate("/Dashboard")
             }else{

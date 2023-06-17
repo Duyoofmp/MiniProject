@@ -20,7 +20,7 @@ export default function EmpLogin(){
             Password: password
             
         }
-        publicGateway.post('/staff/LoginStaff',postData)
+        publicGateway.post('/LoginForStaff/LoginStaff',postData)
         .then((res)=>{
             console.log(res.data)
             localStorage.setItem("accessToken", res.data)

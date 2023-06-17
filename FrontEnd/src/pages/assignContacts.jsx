@@ -1,29 +1,18 @@
 import React, { useState } from 'react';
 import './assignContact.css';
-import { useNavigate } from 'react-router-dom';
+
+import { publicGateway } from '../services/gateway';
+
+import { useNavigate ,useLocation} from 'react-router-dom';
 
 
 const ContactList = () => {
   const [selectedContacts, setSelectedContacts] = useState([]);
+  const [contacts,setContacts]=useState([]);
+  const location = useLocation()
+    
   const navigate = useNavigate();
-  const contacts = [
-    { id: 1, name: 'John Doe', email: 'john@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-    { id: 3, name: 'Mike Johnson', email: 'mike@example.com' },
-    { id: 4, name: 'John Doe', email: 'john@example.com' },
-    { id: 5, name: 'John Doe', email: 'john@example.com' },
-    { id: 6, name: 'John Doe', email: 'john@example.com' },
-    { id: 7, name: 'John Doe', email: 'john@example.com' },
-    { id: 8, name: 'John Doe', email: 'john@example.com' },
-    { id: 9, name: 'John Doe', email: 'john@example.com' },
-    { id: 10, name: 'John Doe', email: 'john@example.com' },
-    { id: 11, name: 'John Doe', email: 'john@example.com' },
-    { id: 12, name: 'John Doe', email: 'john@example.com' },
-    { id: 13, name: 'John Doe', email: 'john@example.com' },
-    { id: 14, name: 'John Doe', email: 'john@example.com' },
-    { id: 15, name: 'John Doe', email: 'john@example.com' },
-    // Add more contacts
-  ];
+
 
   const handleContactSelect = (contactId) => {
     if (selectedContacts.includes(contactId)) {
@@ -39,7 +28,31 @@ const ContactList = () => {
   };
 
   const handleAssignTask = () => {
-    navigate('/managerStaffDetails');
+
+    // Perform the action of assigning the task to the selected contacts
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    publicGateway
+      .post('/product/AssignProduct',{ ProductId: location.state.ProductId,StaffId:location.state.StaffId,ContactIds:selectedContacts },{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        if(res.data===true){
+alert("Task Assigned Successfully :)")
+        }else{
+alert("Error Occured ! ")
+
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    navigate('/')
+
+
   };
 
   return (
@@ -48,17 +61,18 @@ const ContactList = () => {
       <ul className="contact-list">
         {contacts.map((contact) => (
           <li
-            key={contact.id}
+            key={contact.DocId}
             className={`contact-item ${
-              selectedContacts.includes(contact.id) ? 'selected' : ''
+              selectedContacts.includes(contact.DocId) ? 'selected' : ''
             }`}
-            onClick={() => handleContactSelect(contact.id)}
+            onClick={() => handleContactSelect(contact.DocId)}
           >
             <div className="contact-details">
-              <p className="contact-name">{contact.name}</p>
-              <p className="contact-email">{contact.email}</p>
+              <p className="contact-name">{contact.Name}</p>
+              <p className="contact-name">{contact.Category}</p>
+              <p className="contact-email">{contact.Email}</p>
             </div>
-            {selectedContacts.includes(contact.id) && (
+            {selectedContacts.includes(contact.DocId) && (
               <div className="contact-tick">&#10004;</div>
             )}
           </li>
