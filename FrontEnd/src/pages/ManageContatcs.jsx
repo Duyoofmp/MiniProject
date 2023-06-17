@@ -64,7 +64,7 @@ const ManageContatcs = () => {
                     <td>dlmd (h) ddjsd.cc</td>
                 </tr>
                 <tr height={50}>
-                    <td>Raghu</td>
+                    <td>raghavan</td>
                     <td>28373</td>
                     <td>ndsdk@gmail.com</td>
                     <td>dlmd (h) ddjsd.cc</td>

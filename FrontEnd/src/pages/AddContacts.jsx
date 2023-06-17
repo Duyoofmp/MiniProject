@@ -14,9 +14,9 @@ const AddContacts= () => {
                 <input type="text" required="required"/><br></br><br></br>
                 <label>email</label><br></br>
                 <input type="email" required="required" /><br></br><br></br>
-                <label>Phone number</label><br></br>
+                <label>Phone Number</label><br></br>
                 <input type="text" required="required" /><br></br><br></br>
-                <label>Still Working or Not</label><br></br>
+                <label>category</label><br></br>
                 <select>
                     <option>yes</option>
                     <option>No</option>
