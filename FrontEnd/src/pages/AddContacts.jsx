@@ -78,4 +78,4 @@ const AddContacts= () => {
 };
 
 
-export default AddContacts;
+export default AddContacts
