@@ -49,18 +49,6 @@ const AddContacts= () => {
             
             <form>
                 <fieldset>
-
-                <legend>Add Staff</legend>
-                <label>Name</label><br></br>
-                <input value={name} onChange={(e)=>{ setName(e.target.value)}} type="text" required="required"/><br></br><br></br>
-                <label>Address</label><br></br>
-                <input value={address} onChange={(e)=>{ setAddress(e.target.value)}} type="text" required="required" /><br></br><br></br>
-                <label>Email</label><br></br>
-                <input value={email} onChange={(e)=>{ setEmail(e.target.value)}} type="email" required="required" /><br></br><br></br>
-                <label>Phone no</label><br></br>
-                <input value={phoneNo} onChange={(e)=>{ setPhoneNo(e.target.value)}} type="number" required="required" /><br></br><br></br>
-                <input onClick={addContact} type="button" value="submit" />
-
                 <legend>Add contacts</legend>
                 <label>Contact Name</label><br></br>
                 <input value={name}

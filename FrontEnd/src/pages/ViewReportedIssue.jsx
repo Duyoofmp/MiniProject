@@ -1,28 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
+import { publicGateway } from '../services/gateway';
 
 const ViewReportedIssue = () => {
   const [filterStatus, setFilterStatus] = useState('all'); // State for filter status
-
+  const [reportedIssues, setReportedIssues] = useState([]); // State for filter status
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    publicGateway
+      .post('/report/ViewReports',{},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setReportedIssues(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const handleFilterChange = (event) => {
     setFilterStatus(event.target.value);
   };
 
   const filterData = (data) => {
-    if (filterStatus === 'open') {
-      return data.filter((item) => item.status === 'Open');
-    } else if (filterStatus === 'closed') {
-      return data.filter((item) => item.status === 'Closed');
+    if (filterStatus === 'Open') {
+      return data.filter((item) => item.Status === 'Open');
+    } else if (filterStatus === 'Closed') {
+      return data.filter((item) => item.Status === 'Closed');
     }
     return data; // Return all data if no filter applied
   };
-
-  // Sample data for demonstration
-  const reportedIssues = [
-    { id: 1, issue: 'Login Issue', reportedBy: 'Ihjas', status: 'Open' },
-    { id: 2, issue: 'Network Problem', reportedBy: 'John', status: 'Closed' },
-    // Add more data as needed
-  ];
 
   const filteredIssues = filterData(reportedIssues); // Apply filter to data
 
@@ -43,8 +54,8 @@ const ViewReportedIssue = () => {
             <label htmlFor="filter">Filter:</label>
             <select id="filter" value={filterStatus} onChange={handleFilterChange}>
               <option value="all">All</option>
-              <option value="open">Open</option>
-              <option value="closed">Closed</option>
+              <option value="Open">Open</option>
+              <option value="Closed">Closed</option>
             </select>
           </div>
         </div>
@@ -55,15 +66,18 @@ const ViewReportedIssue = () => {
             <th>Reported By</th>
             <th>Status</th>
           </tr>
-          {filteredIssues.map((issue) => (
+          {filteredIssues.map((issue,index) => (
             <tr key={issue.id} height={70}>
-              <td>{issue.id}</td>
-              <td>{issue.issue}</td>
-              <td>{issue.reportedBy}</td>
+              <td>{index+1}</td>
+              <td>{issue.DocId}</td>
+              <td>{issue.StaffName}</td>
+              <td>{issue.StaffEmail}</td>
+              <td>{issue.ReportedIssue}</td>
+              <td>{issue.Date}</td>
               <td>
-                <select>
-                  <option value="Open">Open</option>
-                  <option value="Close">Closed</option>
+                <select >
+                  <option selected={issue.Status === 'Open'} value="Open">Open</option>
+                  <option selected={issue.Status === 'Closed'}value="Closed">Closed</option>
                 </select>
               </td>
             </tr>

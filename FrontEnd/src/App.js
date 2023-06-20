@@ -6,7 +6,6 @@ import Dashboard from './pages/Dashboard.jsx';
 import Managestaff from './pages/ManageStaff';
 import ViewReportedIssue from './pages/ViewReportedIssue.jsx';
 import ManageContatcs from './pages/ManageContatcs.jsx';
-import managerStaffDetails from './pages/managerStaffDetails'
 import ManageProducts from './pages/ManageProducts.jsx';
 import ViewChangeRequest from './pages/ViewChangeRequest.jsx';
 import ViewRankList from './pages/ViewRankList.jsx';
