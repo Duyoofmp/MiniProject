@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
-import { NavLink } from 'react-router-dom';
+
+import { NavLink, Navigate } from 'react-router-dom';
 
 
 const ManageContatcs = () => {
@@ -9,6 +10,7 @@ const ManageContatcs = () => {
 
         <div>
            
+
         <div className='staff' >
                 <h1 className='h2'>contacts</h1>
                 <input type="text" />
@@ -16,7 +18,9 @@ const ManageContatcs = () => {
                 
                         
                 </div>
-                <NavLink to="/AddContact" key={1} className="link" activeclassName="active">  <button  className='b' >Add Contact</button>  </NavLink>
+
+                <NavLink to="/AddContacts" key={1} className="link" activeclassName="active">  <button  className='b' >Add contacts</button>  </NavLink>
+
 
         <table border={5} width={1000} cellPadding={20}>
                 <tr height={70}>
@@ -24,56 +28,49 @@ const ManageContatcs = () => {
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Address</th>
-                    <th>Action</th>
+                    
                 </tr>
                 <tr height={50}>
                     <td>Raghu</td>
                     <td>28373</td>
                     <td>ndsdk@gmail.com</td>
                     <td>dlmd (h) ddjsd.cc</td>
-                    <td>add</td>
                 </tr>
                 <tr height={50}>
                     <td>Raghu</td>
                     <td>28373</td>
                     <td>ndsdk@gmail.com</td>
                     <td>dlmd (h) ddjsd.cc</td>
-                    <td>add</td>
                 </tr>
                 <tr height={50}>
                     <td>Raghu</td>
                     <td>28373</td>
                     <td>ndsdk@gmail.com</td>
                     <td>dlmd (h) ddjsd.cc</td>
-                    <td>add</td>
                 </tr>
                 <tr height={50}>
                     <td>Raghu</td>
                     <td>28373</td>
                     <td>ndsdk@gmail.com</td>
                     <td>dlmd (h) ddjsd.cc</td>
-                    <td>add</td>
                 </tr>
                 <tr height={50}>
                     <td>Raghu</td>
                     <td>28373</td>
                     <td>ndsdk@gmail.com</td>
                     <td>dlmd (h) ddjsd.cc</td>
-                    <td>add</td>
                 </tr>
                 <tr height={50}>
                     <td>Raghu</td>
                     <td>28373</td>
                     <td>ndsdk@gmail.com</td>
                     <td>dlmd (h) ddjsd.cc</td>
-                    <td>add</td>
                 </tr>
                 <tr height={50}>
-                    <td>Raghu</td>
+                    <td>raghavan</td>
                     <td>28373</td>
                     <td>ndsdk@gmail.com</td>
                     <td>dlmd (h) ddjsd.cc</td>
-                    <td>add</td>
                 </tr>
             </table>
         </div>

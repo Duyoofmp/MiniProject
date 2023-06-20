@@ -6,6 +6,7 @@ import './StaffDashboard.css'
 import StaffSidebar from '../components/StaffSidebar';
 
 
+
 const customerDetails = [
     {name:"ihjaz", age:22, gender:"Male", contactNumber:8943841214,},
     {name:"Duyoof", age:21, gender:"Male", contactNumber:1234567890,},
@@ -22,8 +23,9 @@ const Dashboard = () => {
         { id: 1, label: '51' },
         { id: 2, label: '09' }, 
       ];
+
     
-      const handleDivClick = (id) => {
+        const handleDivClick = (id) => {
         console.log(`Clicked div with ID ${id}`);
         // Add your logic here for handling the click event
       };
@@ -62,7 +64,7 @@ const Dashboard = () => {
                         </tr>
                         {customerDetails.map((val, key)=>{
                             return(
-                                <tr key = {key}>
+                                <tr>
                                     <td>{val.name}</td>
                                     <td>{val.age}</td>
                                     <td>{val.gender}</td>

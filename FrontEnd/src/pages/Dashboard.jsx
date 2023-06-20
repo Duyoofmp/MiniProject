@@ -7,8 +7,18 @@ const Dashboard = () => {
   const [staffArray, setStaffArray] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
     publicGateway
-      .post('/manager/ViewStaffs')
+      .post(
+        '/manager/ViewStaffs',
+        {},
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      )
       .then((res) => {
         console.log(res.data);
         setStaffArray(res.data);
@@ -40,18 +50,12 @@ const Dashboard = () => {
             <th>Staff name</th>
             <th>Designation</th>
             <th>Email</th>
-            <th>Total</th>
-            <th>Finished</th>
-            <th>Not Finished</th>
           </tr>
           {staffArray.map((staff, index) => (
             <tr key={index} height={70}>
               <td>{staff.Name}</td>
               <td>{staff.Designation}</td>
               <td>{staff.Email}</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
             </tr>
           ))}
         </table>

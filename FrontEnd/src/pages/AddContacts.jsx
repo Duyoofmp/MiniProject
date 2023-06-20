@@ -1,3 +1,4 @@
+
 import React,{useState} from 'react';
 import Sidebar from '../components/Sidebar';
 import { publicGateway } from '../services/gateway';
@@ -5,8 +6,8 @@ import {  useNavigate } from 'react-router-dom';
 
 
 
-const AddContact= () => {
-    const navigate = useNavigate()
+const AddContacts= () => {
+ const navigate = useNavigate()
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -32,7 +33,6 @@ const AddContact= () => {
         .catch((err)=>{
             console.log(err)
         })
-    }
     return (
         <Sidebar name1="Dashboard" name2="ManageStaff" name3="ViewReportedIssue" name4="ManageContatcs" name5="ManageProducts" name6="ViewChangeRequest" name7="ViewRankList">
 
@@ -40,6 +40,7 @@ const AddContact= () => {
             
             <form>
                 <fieldset>
+
                 <legend>Add Staff</legend>
                 <label>Name</label><br></br>
                 <input value={name} onChange={(e)=>{ setName(e.target.value)}} type="text" required="required"/><br></br><br></br>
@@ -50,6 +51,23 @@ const AddContact= () => {
                 <label>Phone no</label><br></br>
                 <input value={phoneNo} onChange={(e)=>{ setPhoneNo(e.target.value)}} type="number" required="required" /><br></br><br></br>
                 <input onClick={addContact} type="button" value="submit" />
+
+                <legend>Add contacts</legend>
+                <label>Contact Name</label><br></br>
+                <input type="text" required="required"/><br></br><br></br>
+                <label>email</label><br></br>
+                <input type="email" required="required" /><br></br><br></br>
+                <label>Phone Number</label><br></br>
+                <input type="text" required="required" /><br></br><br></br>
+                <label>category</label><br></br>
+                <select>
+                    <option>yes</option>
+                    <option>No</option>
+                </select>
+                <br></br><br></br>
+                
+                <input type="submit" />
+
                 <input type="reset" />
 
                 </fieldset>
@@ -59,4 +77,5 @@ const AddContact= () => {
     );
 };
 
-export default AddContact;
+
+export default AddContacts;
