@@ -1,5 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
+
 import { NavLink, Navigate } from 'react-router-dom';
 
 
@@ -17,7 +18,9 @@ const ManageContatcs = () => {
                 
                         
                 </div>
+
                 <NavLink to="/AddContacts" key={1} className="link" activeclassName="active">  <button  className='b' >Add contacts</button>  </NavLink>
+
 
         <table border={5} width={1000} cellPadding={20}>
                 <tr height={70}>
