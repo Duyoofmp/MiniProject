@@ -25,6 +25,9 @@ import Roles from './components/roles';
 import EmpLogin from './components/empLogin';
 import ManagerSignInOut from './container/SignInOut';
 import StaffDetails from './pages/managerStaffDetails';
+import AssignProduct from './pages/assignProduct';
+import AssignContact from './pages/assignContacts';
+
 
 const App = () => {
   return (
@@ -43,6 +46,10 @@ const App = () => {
           <Route path="/AddProduct" element={<AddProduct />} />
 
           <Route path="/AddContacts" element={<AddContacts />} />
+          <Route path="/assignProduct" element={<AssignProduct />} />
+          <Route path="/assignContact" element={<AssignContact />} />
+
+
 
 
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './assignContact.css';
 
 import { publicGateway } from '../services/gateway';
@@ -7,6 +7,23 @@ import { useNavigate ,useLocation} from 'react-router-dom';
 
 
 const ContactList = () => {
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    publicGateway
+      .post('/contact/ViewContacts',{},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setContacts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [contacts,setContacts]=useState([]);
   const location = useLocation()
@@ -50,7 +67,7 @@ alert("Error Occured ! ")
       .catch((err) => {
         console.log(err);
       });
-    navigate('/')
+    navigate('/ManageStaff')
 
 
   };
@@ -69,7 +86,7 @@ alert("Error Occured ! ")
           >
             <div className="contact-details">
               <p className="contact-name">{contact.Name}</p>
-              <p className="contact-name">{contact.Category}</p>
+              <p className="contact-phoneNo">{contact.PhoneNo}</p>
               <p className="contact-email">{contact.Email}</p>
             </div>
             {selectedContacts.includes(contact.DocId) && (
