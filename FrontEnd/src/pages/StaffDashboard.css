@@ -1,0 +1,98 @@
+
+.dashboard-heading{
+    display: flex;
+    margin-bottom: 25px;
+}
+h3{
+  font-size: 16px;
+  margin-bottom: 22px;
+}
+.change-product-btn {
+  margin-left: auto;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  
+  
+}
+
+.change-product-btn:hover {
+  background-color: #0056b3;
+}
+.req-btn{
+  position: relative;
+  display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.customer-table{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+table{
+    border: 4px solid #d1d1d1;
+    width: 100%;
+    height: 100%;
+}
+th{
+    border-bottom: 4px solid #d1d1d1;
+    padding: 10px;
+
+}
+td{
+    text-align: center;
+    padding: 5px;
+}
+.options {
+  display: flex;
+  justify-content: center;
+}
+
+.options-div {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 311px;
+  height: 104px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 37px;
+}
+
+.options-div:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.options-div svg {
+  font-size: 3rem;
+  margin-right: 10px;
+}
+
+.options-div h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.options-div.div1 {
+  background-color: #E7F0FA; 
+  color: #000000; 
+  margin-right: 40px;
+}
+
+.options-div.div2 {
+  background-color: #FFF6E6; 
+  color: #000000; 
+}
+
+.options-div.div3 {
+  background-color: #FFEFB6; 
+  color: #000000;
+}
