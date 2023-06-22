@@ -48,10 +48,14 @@ async function Create(req, res) {
   
 async function AssignProduct(req, res) {
     const temp = [];
+    const prom = [];
+
     const today = moment().tz('Asia/Kolkata');
     
         req.body.ContactIds.forEach(Contactid => {
             temp.push(db.collection("Leads").doc(Contactid + "_" + req.body.ProductId).set({StaffId: req.body.StaffId, Status: "Open", index: Date.now(), Date: today.format('YYYY-MM-DD')}, { "merge": true }))
+            prom.push(db.collection("Staffs").doc(req.body.ProductId).set({StaffId: req.body.StaffId, Status: "Open", index: Date.now(), Date: today.format('YYYY-MM-DD')}, { "merge": true }))
+
         })
     
 

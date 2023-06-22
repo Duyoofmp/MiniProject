@@ -6,7 +6,6 @@ import Dashboard from './pages/Dashboard.jsx';
 import Managestaff from './pages/ManageStaff';
 import ViewReportedIssue from './pages/ViewReportedIssue.jsx';
 import ManageContatcs from './pages/ManageContatcs.jsx';
-import managerStaffDetails from './pages/managerStaffDetails'
 import ManageProducts from './pages/ManageProducts.jsx';
 import ViewChangeRequest from './pages/ViewChangeRequest.jsx';
 import ViewRankList from './pages/ViewRankList.jsx';
@@ -25,6 +24,9 @@ import Roles from './components/roles';
 import EmpLogin from './components/empLogin';
 import ManagerSignInOut from './container/SignInOut';
 import StaffDetails from './pages/managerStaffDetails';
+import AssignProduct from './pages/assignProduct';
+import AssignContact from './pages/assignContacts';
+
 
 const App = () => {
   return (
@@ -41,7 +43,12 @@ const App = () => {
           <Route path="/ViewRankList" element={<ViewRankList />} />
           <Route path="/AddStaff" element={<AddStaff />} />
           <Route path="/AddProduct" element={<AddProduct />} />
+
           <Route path="/AddContacts" element={<AddContacts />} />
+          <Route path="/assignProduct" element={<AssignProduct />} />
+          <Route path="/assignContact" element={<AssignContact />} />
+
+
 
 
 
