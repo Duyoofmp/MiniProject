@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import './managerStaffDetails.css';
 import { publicGateway } from '../services/gateway';
+import Analytics from './StaffAnalytics';
 
 
 const StaffDetails = () => {
@@ -109,8 +110,7 @@ const StaffDetails = () => {
         )}
         {activeOption === 'analytics' && (
           <div>
-            <h3>Analytics</h3>
-            <p>Analytics data goes here</p>
+            <p><Analytics/></p>
           </div>
         )}
       </div>
