@@ -12,7 +12,7 @@ function StaffProduct({ product }) {
   return (
     <StaffSidebar>
       <div className='staff'>
-        <h1 className='h2'>Products</h1>
+        <h1 className='h2'>Assigned Tasks</h1>
       </div>
       <div className="product-page">
         <table border={5} width={1000} cellPadding={20}>

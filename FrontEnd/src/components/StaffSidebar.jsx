@@ -22,7 +22,7 @@ const StaffSidebar = ({children}) => {
         },
         {
             path:"/analytics",
-            name:"View Rank List",
+            name:"Analytics",
             icon:<FaRegChartBar/>
         },
         {
@@ -32,14 +32,10 @@ const StaffSidebar = ({children}) => {
         },
         {
             path:"/product",
-            name:"Assigned Product",
+            name:"Assigned Tasks",
             icon:<FaShoppingBag/>
         },
-        {
-            path:"/productList",
-            name:"Product List",
-            icon:<FaThList/>
-        },
+      
         {
             path:"/profile",
             name:"Profile",

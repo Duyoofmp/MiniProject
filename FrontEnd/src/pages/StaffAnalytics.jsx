@@ -1,6 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
+
 const Analytics = () => {
   // Generate random data values
   const assigned = Math.floor(Math.random() * 100) + 1; // Random assigned value between 1 and 100
@@ -27,6 +28,7 @@ const Analytics = () => {
       </BarChart>
     </div>
   );
+ 
 };
 
 export default Analytics;

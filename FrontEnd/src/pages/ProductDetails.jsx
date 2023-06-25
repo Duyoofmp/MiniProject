@@ -1,10 +1,38 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState,useEffect } from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
+
+import { publicGateway } from '../services/gateway';
+
 import './ProductDetails.css';
+import StaffSidebar from '../components/StaffSidebar';
+import Analytics from './StaffAnalytics';
 
 const ProductDetails = () => {
   const [activeOption, setActiveOption] = useState('assignedStaff');
+  const [product, setProduct] = useState({});
   const navigate = useNavigate();
+  const location = useLocation()
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    console.log(location.state.ProductId,"bkaaaaaaaaaaaaaaaaaaaaaaaa");
+
+    publicGateway
+      .post('/product/ViewProducts',{DocId:location.state.ProductId},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setProduct(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleOptionClick = (option) => {
     setActiveOption(option);
@@ -15,6 +43,7 @@ const ProductDetails = () => {
   };
 
   return (
+    <StaffSidebar>
     <div>
       <div className="product-details-container">
         <div className="product-profile">
@@ -37,8 +66,8 @@ const ProductDetails = () => {
               />
             </div>
             <div className="profile-details">
-              <h2>Product Name</h2>
-              <p>Product Details</p>
+              <h2>{product.Name}</h2>
+              <p>{product.Description}</p>
             </div>
           </div>
           <button className="assign-staff-button" onClick={handleAssignStaffClick}>
@@ -78,12 +107,12 @@ const ProductDetails = () => {
         )}
         {activeOption === 'productAnalytics' && (
           <div>
-            <h3>Product Analytics</h3>
-            <p>Analytics data goes here</p>
-          </div>
+          <p><Analytics/></p>
+        </div>
         )}
       </div>
     </div>
+    </StaffSidebar>
   );
 };
 

@@ -17,7 +17,6 @@ import StaffDashboard from './pages/StaffDashboard.jsx';
 import Analytics from './pages/StaffAnalytics.jsx';
 import Comment from './pages/StaffComment.jsx';
 import Product from './pages/StaffProduct.jsx';
-import ProductList from './pages/StaffProductList.jsx';
 import Profile from './pages/StaffProfile.jsx';
 
 import Roles from './components/roles';
@@ -26,6 +25,7 @@ import ManagerSignInOut from './container/SignInOut';
 import StaffDetails from './pages/managerStaffDetails';
 import AssignProduct from './pages/assignProduct';
 import AssignContact from './pages/assignContacts';
+import ProductDetails from './pages/ProductDetails';
 
 
 const App = () => {
@@ -47,6 +47,8 @@ const App = () => {
           <Route path="/AddContacts" element={<AddContacts />} />
           <Route path="/assignProduct" element={<AssignProduct />} />
           <Route path="/assignContact" element={<AssignContact />} />
+          <Route path="/managerProductDetails" element={<ProductDetails />} />
+
 
 
 
@@ -56,8 +58,7 @@ const App = () => {
           <Route path="/staffdashboard" element={<StaffDashboard />} />
           <Route path="/comment" element={<Comment />} />
           <Route path="/analytics" element={<Analytics />} />
-          <Route path="/product" element={<Product />} />
-          <Route path="/productList" element={<ProductList />} />
+          <Route path="/product" element={<Product/>} />
           <Route path="/profile" element={<Profile />} />
           
 
