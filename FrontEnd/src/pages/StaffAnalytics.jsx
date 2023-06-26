@@ -1,5 +1,6 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import StaffSidebar from '../components/StaffSidebar';
 
 
 const Analytics = () => {
@@ -17,6 +18,7 @@ const Analytics = () => {
   ];
 
   return (
+    <StaffSidebar>
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <BarChart width={600} height={400} data={data}>
         <CartesianGrid strokeDasharray="9 9" />
@@ -27,6 +29,7 @@ const Analytics = () => {
         <Bar dataKey="data" fill="#8884d8" />
       </BarChart>
     </div>
+    </StaffSidebar>
   );
  
 };
