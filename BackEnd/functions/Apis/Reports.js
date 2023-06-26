@@ -38,10 +38,6 @@ app.use(common.decodeIDToken)
   })
   
   
-  app.post('/AssignReport', async (req, res) => {
-    const AssignReport = require("../Services/Reports");
-    return AssignReport.AssignReport(req, res);
-  })
 
 
 exports.report = functions.runWith({ memory: '128MB' }).region("asia-south1").https.onRequest(app);

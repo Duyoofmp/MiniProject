@@ -5,6 +5,8 @@ import { publicGateway } from '../services/gateway';
 
 const Dashboard = () => {
   const [staffArray, setStaffArray] = useState([]);
+  const [searchKey, setSearchKey] = useState();
+
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -28,13 +30,35 @@ const Dashboard = () => {
       });
   }, []);
 
+  const search=async (K)=>{
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    publicGateway
+      .post(
+        '/manager/ViewStaffs',
+        {Keyword:K},
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setStaffArray(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  
+  }
   return (
     <Sidebar>
       <div>
         <div className="a">
           <h1 className="h1">Dashboard</h1>
-          <input className='search-bar' type="search" placeholder='Search Staff'/>
-          <button>Search</button>
+          <input value={searchKey} onChange={(e) => setSearchKey(e.target.value)} className='search-bar' type="search" placeholder='Search Staff'/>
+          <button  onClick={()=>search(searchKey)} >Search</button>
         </div>
         <table border={5} width={1200} cellPadding={20}>
           <tr height={30}>
