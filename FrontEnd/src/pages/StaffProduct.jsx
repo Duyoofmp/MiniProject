@@ -6,7 +6,7 @@ function StaffProduct({ product }) {
   const navigate = useNavigate();
 
   const navigateToPage = (productObj) => {
-    navigate('/staffDashboard', { state: productObj });
+    navigate('/managerProductDetails', { state: productObj });
   };
 
   return (
