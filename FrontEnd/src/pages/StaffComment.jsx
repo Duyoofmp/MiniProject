@@ -1,19 +1,21 @@
 import React from 'react';
 import StaffSidebar from '../components/StaffSidebar';
 import { useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 
-const Comment = ({report}) => {
-  const navigate = useNavigate();
 
-    const navigateToPage = (reportObj) => {
-        navigate('/staffDashboard', { state: reportObj });
-      };
+const Comment = () => {
+  
+
+    
     return (
         <StaffSidebar>
         <div className='staff'>
           <h1 className='h2'>Report Issues</h1>
+          <NavLink to="/reportIssue" key={1} className="link" activeclassName="active">  <button  className='b' >Report Issue</button>  </NavLink>
+
         </div>
         <div className="report-page">
           <table border={5} width={1000} cellPadding={20}>
