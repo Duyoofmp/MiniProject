@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './a.css';
+import './ManagerDashboard.css';
 import Sidebar from '../components/Sidebar';
 import { publicGateway } from '../services/gateway';
 
@@ -29,21 +29,12 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Sidebar
-      name1="Dashboard"
-      name2="ManageStaff"
-      name3="ViewReportedIssue"
-      name4="ManageContatcs"
-      name5="ManageProducts"
-      name6="ViewChangeRequest"
-      name7="ViewRankList"
-    >
+    <Sidebar>
       <div>
         <div className="a">
           <h1 className="h1">Dashboard</h1>
-          <input type="date" />
-          <input type="search" />
-          <button>search</button>
+          <input className='search-bar' type="search" placeholder='Search Staff'/>
+          <button>Search</button>
         </div>
         <table border={5} width={1200} cellPadding={20}>
           <tr height={30}>
