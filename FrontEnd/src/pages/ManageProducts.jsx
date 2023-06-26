@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { publicGateway } from '../services/gateway';
+import "./ManageProducts.css"
 
 
 
@@ -37,13 +38,13 @@ const ManageProducts = () => {
         <div>
              <div className='staff' >
                 <h1 className='h2'>Products</h1>
-                <input type="text" />
+                <input type="text" placeholder='Search Product' />
                 <button>search</button>
                 
                         
                 </div>
                 
-                <NavLink to="/AddProduct" key={1} className="link" activeclassName="active">  <button  className='b' >Add Products</button>  </NavLink>
+              <button  className='addProduct-btn' onClick={()=> navigate("/AddProducts")}>Add Products</button>
                
             <table border={5} width={1000} cellPadding={20}>
                 <tr height={70}>
