@@ -18,6 +18,7 @@ import Analytics from './pages/StaffAnalytics.jsx';
 import Comment from './pages/StaffComment.jsx';
 import Product from './pages/StaffProduct.jsx';
 import Profile from './pages/StaffProfile.jsx';
+import ReportIssue from './pages/ReportIssue.jsx';
 
 import Roles from './components/roles';
 import EmpLogin from './components/empLogin';
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/ViewRankList" element={<ViewRankList />} />
           <Route path="/AddStaff" element={<AddStaff />} />
           <Route path="/AddProduct" element={<AddProduct />} />
+          <Route path="/ReportIssue" element={<ReportIssue />} />
 
           <Route path="/AddContacts" element={<AddContacts />} />
           <Route path="/assignProduct" element={<AssignProduct />} />
