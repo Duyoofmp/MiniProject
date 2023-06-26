@@ -55,7 +55,7 @@ const Sidebar = ({ children }) => {
 
   return (
     <div className="container">
-      <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
+      <div style={{ width: isOpen ? "200px" : "60px" }} className="sidebar">
         <div className="top_section">
           <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">Manager</h1>
           <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">

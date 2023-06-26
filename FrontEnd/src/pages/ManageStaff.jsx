@@ -5,7 +5,7 @@ import { publicGateway } from '../services/gateway';
 import { useNavigate } from 'react-router-dom';
 
 
-import './b.css';
+import './ManageStaff.css';
 
 const Managestaff = () => {
   const [staffArray, setStaffArray] = useState([]);
@@ -47,12 +47,11 @@ const Managestaff = () => {
       <div>
         <div className="staff">
           <h1 className="h2">staffs</h1>
-          <input type="text" />
-          <button>search</button>
+          <input type="text" placeholder='Search Staff'/>
+          <button className='search-btn'>search</button>
         </div>
-        <NavLink to="/AddStaff" key={1} className="link" activeClassName="active">
-          <button className="b">Add Staffs</button>
-        </NavLink>
+          <button className="add-Staff" onClick={()=>{navigate('/AddStaff')}}>Add Staffs</button>
+        
 
         <table border={5} width={1200} cellPadding={20}>
           <tr height={100}>
