@@ -1,0 +1,185 @@
+/* ManagerDashboard.css */
+
+.container {
+    display: flex;
+  }
+  
+  /* Sidebar Styles */
+  .sidebar {
+    width: 50px;
+    background-color: #262626;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .sidebar.open {
+    width: 200px;
+  }
+  
+  .top_section {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .logo {
+    color: #fff;
+    font-size: 20px;
+    margin: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .logo.visible {
+    opacity: 1;
+  }
+  
+  .bars {
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  
+  .menu {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .link:hover {
+    background-color: #404040;
+  }
+  
+  .icon {
+    margin-right: 10px;
+  }
+  
+  .link_text {
+    display: none;
+  }
+  
+  .link_text.visible {
+    display: block;
+  }
+  
+  .active {
+    background-color: #404040;
+  }
+  
+  /* Main Content Styles */
+  main {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .h1 {
+    font-size: 24px;
+    margin-right: 10px;
+
+    
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    width: 900px;
+    height: 2px; 
+    
+    
+    padding: 20px;
+  }
+    
+  button {
+    padding: 8px 16px;
+    background-color: #2482cf;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tr:hover {
+    background-color: #e6e6e6;
+  }
+  
+  /* Responsive Styles */
+  @media screen and (max-width: 768px) {
+    .sidebar {
+      width: 100px;
+    }
+  
+    .sidebar.open {
+      width: 250px;
+    }
+  
+    .logo {
+      font-size: 18px;
+    }
+  
+    .bars {
+      font-size: 18px;
+    }
+  
+    .link_text {
+      display: none;
+    }
+  
+    .link_text.visible {
+      display: none;
+    }
+  
+    main {
+      padding: 10px;
+    }
+  
+    .a {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .search-bar {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    input[type="search"] {
+      margin-right: 0;
+    }
+  }
+  

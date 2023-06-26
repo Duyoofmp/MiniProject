@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "https://asia-south1-miniproject-d3fad.cloudfunctions.net";
+const baseURL = "http://localhost:5000/miniproject-d3fad/asia-south1/";
 
 export const publicGateway = axios.create({
     baseURL,

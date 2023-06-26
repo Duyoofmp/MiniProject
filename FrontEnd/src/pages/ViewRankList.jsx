@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 
 const ViewRankList = () => {
     return (
-        <Sidebar name1="Dashboard" name2="ManageStaff" name3="ViewReportedIssue" name4="ManageContatcs" name5="ManageProducts" name6="ViewChangeRequest" name7="ViewRankList">
+        <Sidebar >
 
         <div>
             <div className='staff' >
