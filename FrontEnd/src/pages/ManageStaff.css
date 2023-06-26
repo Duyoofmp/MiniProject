@@ -1,5 +1,8 @@
+
+
 .container {
     display: flex;
+    
   }
   
   /* Sidebar Styles */
@@ -16,6 +19,7 @@
   .top_section {
     display: flex;
     align-items: center;
+    
     padding: 10px;
   }
   
@@ -74,14 +78,11 @@
   }
   
   .staff {
+    margin-top: 60px; 
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 20px;
-    position: sticky;
-    top: 0;
-    background-color: #fff;
-    z-index: 1;
   }
   
   .h2 {
@@ -89,13 +90,9 @@
     margin-right: 10px;
     margin-bottom: 0;
   }
-  
-  .add-Staff {
+  .add-Staff{
     background-color: coral;
     margin-bottom: 10px;
-    position: sticky;
-    top: 70px;
-    z-index: 1;
   }
   
   input[type="text"] {
