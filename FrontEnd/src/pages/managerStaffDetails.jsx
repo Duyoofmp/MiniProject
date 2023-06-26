@@ -7,6 +7,12 @@ import Analytics from './StaffAnalytics';
 
 const StaffDetails = () => {
   const [staffDetails, setStaffDetails] = useState({});
+  const [openProducts, setOpenProducts] = useState([]);
+  const [rejectedProducts, setRejectedProducts] = useState([]);
+
+  const [acceptedProducts, setAcceptedProducts] = useState([]);
+
+
   const location = useLocation()
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -20,6 +26,45 @@ const StaffDetails = () => {
       .then((res) => {
         console.log(res.data);
         setStaffDetails(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      publicGateway
+      .post('/staff/GetProductsOfStaff',{StaffId:location.state.StaffId,Status:"Open"},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setOpenProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      publicGateway
+      .post('/staff/GetProductsOfStaff',{StaffId:location.state.StaffId,Status:"Accepted"},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setAcceptedProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      publicGateway
+      .post('/staff/GetProductsOfStaff',{StaffId:location.state.StaffId,Status:"Rejected"},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setRejectedProducts(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -76,36 +121,53 @@ const StaffDetails = () => {
               Completed Products
             </li>
             <li
+              className={activeOption === 'rejectedProducts' ? 'active' : ''}
+              onClick={() => handleOptionClick('rejectedProducts')}
+            >
+              Rejected Products
+            </li>
+            <li
               className={activeOption === 'analytics' ? 'active' : ''}
               onClick={() => handleOptionClick('analytics')}
             >
               Analytics
             </li>
+            
           </ul>
         </div>
       </div>
 
       <div className="customer-details">
         {activeOption === 'assignedProducts' && (
-          <div>
-            <h3>Assigned Products</h3>
-            <div className="product-card1">
-              <p>Product 1</p>
-            </div>
-            <div className="product-card1">
-              <p>Product 2</p>
-            </div>
-          </div>
-        )}
+  <div>
+    <h3>Assigned Products</h3>
+    {openProducts.map((product, index) => (
+      <div key={index} className="product-card1">
+        <p>{product.Name}</p>
+      </div>
+    ))}
+  </div>
+)}
         {activeOption === 'completedProducts' && (
           <div>
             <h3>Completed Products</h3>
+            {acceptedProducts.map((product, index) => (
             <div className="product-card1">
-              <p>Product 3</p>
+              <p>{product.Name}</p>
             </div>
+    ))}
+           
+          </div>
+        )}
+        {activeOption === 'rejectedProducts' && (
+          <div>
+            <h3>Rejected Products</h3>
+            {rejectedProducts.map((product, index) => (
             <div className="product-card1">
-              <p>Product 4</p>
+              <p>{product.Name}</p>
             </div>
+    ))}
+           
           </div>
         )}
         {activeOption === 'analytics' && (

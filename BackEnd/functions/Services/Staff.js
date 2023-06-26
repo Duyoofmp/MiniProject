@@ -33,7 +33,7 @@ async function Update(req, res) {
 
  
   async function Read(req, res) {
-    console.log(req.body)
+    console.log(req.body.StaffId)
     const data = await dataHandling.Read("Staffs", req.body.StaffId, req.body.index, req.body.Keyword);
     return res.json(data)
   }
@@ -42,9 +42,9 @@ async function Update(req, res) {
     const temp = [];
     
   
-    const pro = await db.collection("Staffs").doc(req.body.StaffId).collection("AssignedProducts").where("TotalNo", ">=", 1).get();
+    const pro = await db.collection("Leads").where("StaffId","==",req.body.StaffId).where("Status","==",req.body.Status).get();
     pro.forEach(docs => {
-      temp.push(dataHandling.Read("Products", docs.id))
+      temp.push(dataHandling.Read("Products", docs.data().ProductId))
     })
     return res.json(await Promise.all(temp))
   }
