@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { NavLink } from 'react-router-dom';
 import { publicGateway } from '../services/gateway';
 import { useNavigate } from 'react-router-dom';
+import "./ManageContacts.css"
 
 const ManageContatcs = () => {
     const [contactArray, setContactArray] = useState([]);
@@ -76,13 +77,18 @@ const ManageContatcs = () => {
 
         <div className='staff' >
                 <h1 className='h2'>contacts</h1>
+<<<<<<< HEAD
                 <input onChange={(e) => search(e.target.value)}  type="text" />
 
+=======
+                <input type="text" placeholder='Search Contacts' />
+                <button>search</button>
+>>>>>>> 09db38babf50ed80e7e9ad0586e101ef7b47887f
                 
                         
                 </div>
 
-                <NavLink to="/AddContacts" key={1} className="link" activeclassName="active">  <button  className='b' >Add contacts</button>  </NavLink>
+              <button  className='add-contacts' onClick={()=> navigate("/AddContacts")} >Add contacts</button>
 
 
         <table border={5} width={1000} cellPadding={20}>
