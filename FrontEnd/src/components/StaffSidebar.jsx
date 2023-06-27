@@ -6,7 +6,8 @@ import {
     FaRegChartBar,
     FaExclamationCircle,
     FaShoppingBag,
-    FaThList
+    FaThList,
+    FaSignOutAlt
 }from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 
@@ -40,7 +41,13 @@ const StaffSidebar = ({children}) => {
             path:"/profile",
             name:"Profile",
             icon:<FaUserAlt/>
-        }
+        },
+        {
+            path: "/",
+            name: "Sign out",
+            icon: <FaSignOutAlt />
+          },
+
     ]
     return (
         <div className="container">

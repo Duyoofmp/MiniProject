@@ -4,12 +4,14 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import { publicGateway } from '../services/gateway';
 
 import './ProductDetails.css';
-import StaffSidebar from '../components/StaffSidebar';
+import Sidebar from '../components/Sidebar';
 import Analytics from './StaffAnalytics';
 
 const ProductDetails = () => {
   const [activeOption, setActiveOption] = useState('assignedStaff');
   const [product, setProduct] = useState({});
+  const [staffs, setStaffs] = useState([]);
+
   const navigate = useNavigate();
   const location = useLocation()
 
@@ -32,6 +34,19 @@ const ProductDetails = () => {
       .catch((err) => {
         console.log(err);
       });
+      publicGateway
+      .post('/product/ViewAssignedStaffs',{ProductId:location.state.ProductId},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setStaffs(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const handleOptionClick = (option) => {
@@ -43,7 +58,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <StaffSidebar>
+    <Sidebar>
     <div>
       <div className="product-details-container">
         <div className="product-profile">
@@ -97,12 +112,13 @@ const ProductDetails = () => {
         {activeOption === 'assignedStaff' && (
           <div>
             <h3>Assigned Staff</h3>
+            
+            {staffs.map((staff, index) => (
             <div className="staff-card1">
-              <p>Staff 1</p>
+              <p>{staff.Name}</p>
             </div>
-            <div className="staff-card1">
-              <p>Staff 2</p>
-            </div>
+    ))}
+
           </div>
         )}
         {activeOption === 'productAnalytics' && (
@@ -112,7 +128,7 @@ const ProductDetails = () => {
         )}
       </div>
     </div>
-    </StaffSidebar>
+    </Sidebar>
   );
 };
 

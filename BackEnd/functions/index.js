@@ -26,6 +26,10 @@ const contact = require("./Apis/Contacts");
 exports.contact = contact.contact;
 
 
+const report = require("./Apis/Reports");
+exports.report = report.report;
+
+
 
 
 

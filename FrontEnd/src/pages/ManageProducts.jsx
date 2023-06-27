@@ -27,6 +27,28 @@ const ManageProducts = () => {
             console.log(err);
           });
       }, []);
+      const search=async (K)=>{
+        const token = localStorage.getItem('accessToken');
+        console.log(token);
+        publicGateway
+          .post(
+            '/product/ViewProducts',
+            {Keyword:K},
+            {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            setProductArray(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      
+      }
       const navigateToPage = (productObj) => {
         console.log(productObj.DocId)
         navigate('/managerProductDetails',{state:{ProductId:productObj.DocId}});
@@ -37,8 +59,8 @@ const ManageProducts = () => {
         <div>
              <div className='staff' >
                 <h1 className='h2'>Products</h1>
-                <input type="text" />
-                <button>search</button>
+                <input onChange={(e) => search(e.target.value)}  type="text" />
+
                 
                         
                 </div>

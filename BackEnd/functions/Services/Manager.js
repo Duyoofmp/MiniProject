@@ -13,7 +13,7 @@ async function RegisterManager(req, res) {
         const createUser=await  admin.auth().createUser({email:Email,password: Password,phoneNumber:String(PhoneNo),displayName:Name});
         await dataHandling.Create("Managers",{...req.body},createUser.uid)
         console.log(createUser.uid)
-        const token=await com.GenerateToken({ManagerId:createUser.uid})
+        const token=await com.GenerateToken({Role:"Manager",ManagerId:createUser.uid})
 
         return res.json({token:token})
     } catch (error) {
@@ -31,7 +31,7 @@ async function LoginManager(req, res) {
          
 
         if(manData.Password===Password){
-            const token=await com.GenerateToken({ManagerId:createUser.uid})
+            const token=await com.GenerateToken({Role:"Manager",ManagerId:createUser.uid})
 
          return res.json(token)
         

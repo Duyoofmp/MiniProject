@@ -7,7 +7,8 @@ import {
   FaShoppingBag,
   FaChartBar,
   FaMale,
-  FaAddressBook
+  FaAddressBook,
+  FaSignOutAlt
 } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 
@@ -50,6 +51,11 @@ const Sidebar = ({ children }) => {
       path: "/ViewRankList",
       name: "View Rank List",
       icon: <FaChartBar />
+    },
+    {
+      path: "/",
+      name: "Sign out",
+      icon: <FaSignOutAlt />
     },
   ];
 

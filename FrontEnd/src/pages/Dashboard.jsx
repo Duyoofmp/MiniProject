@@ -5,7 +5,7 @@ import { publicGateway } from '../services/gateway';
 
 const Dashboard = () => {
   const [staffArray, setStaffArray] = useState([]);
-  const [searchKey, setSearchKey] = useState();
+  const [searchKey, setSearchKey] = useState("");
 
 
   useEffect(() => {
@@ -57,8 +57,8 @@ const Dashboard = () => {
       <div>
         <div className="a">
           <h1 className="h1">Dashboard</h1>
-          <input value={searchKey} onChange={(e) => setSearchKey(e.target.value)} className='search-bar' type="search" placeholder='Search Staff'/>
-          <button  onClick={()=>search(searchKey)} >Search</button>
+          <input onChange={(e) => search(e.target.value)} className='search-bar' type="search" placeholder='Search Staff'/>
+        
         </div>
         <table border={5} width={1200} cellPadding={20}>
           <tr height={30}>

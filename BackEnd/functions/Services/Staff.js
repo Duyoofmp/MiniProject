@@ -13,7 +13,7 @@ async function LoginStaff(req, res) {
         const staffcheck=await dataHandling.Read("Staffs",undefined,undefined,undefined,1,["Email","==",Email,"Password","==",Password])
          console.log(staffcheck[0].DocId)
         if(staffcheck.length===1){
-            const token=await com.GenerateToken({StaffId:staffcheck[0].DocId,...req.body})
+            const token=await com.GenerateToken({StaffId:staffcheck[0].DocId,Role:"Staff",...req.body})
          return res.json(token)
         
         }else{
@@ -40,9 +40,14 @@ async function Update(req, res) {
 
   async function GetProductsOfStaff(req, res) {
     const temp = [];
-    
-  
-    const pro = await db.collection("Leads").where("StaffId","==",req.body.StaffId).where("Status","==",req.body.Status).get();
+    console.log(req.body,"blsdfhjshgsvdbhsjahgdfvhjskhg")
+    let pro;
+  if(req.body.Status!==undefined){
+     pro = await db.collection("Leads").where("StaffId","==",req.body.StaffId).where("Status","==",req.body.Status).get();
+  }else{
+     pro = await db.collection("Leads").where("StaffId","==",req.body.StaffId).get();
+
+  }
     pro.forEach(docs => {
       temp.push(dataHandling.Read("Products", docs.data().ProductId))
     })

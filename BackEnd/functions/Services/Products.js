@@ -52,13 +52,24 @@ async function AssignProduct(req, res) {
     const today = moment().tz('Asia/Kolkata');
     
         req.body.ContactIds.forEach(Contactid => {
-            temp.push(db.collection("Leads").doc(Contactid + "_" + req.body.ProductId).set({ProductId:req.body.ProductId,StaffId: req.body.StaffId, Status: "Open", index: Date.now(), Date: today.format('YYYY-MM-DD')}, { "merge": true }))
+            temp.push(db.collection("Leads").doc(Contactid + "_" + req.body.ProductId).set({ContactId:Contactid,ProductId:req.body.ProductId,StaffId: req.body.StaffId, Status: "Open", index: Date.now(), Date: today.format('YYYY-MM-DD')}, { "merge": true }))
         })
     
 
     await Promise.all(temp)
     return res.json(true)
 }
+async function ViewAssignedStaffs(req, res) {
+  const temp = [];
+  
+
+  const pro = await db.collection("Leads").where("ProductId","==",req.body.ProductId).get();
+  pro.forEach(docs => {
+    temp.push(dataHandling.Read("Staffs", docs.data().StaffId))
+  })
+  return res.json(await Promise.all(temp))
+}
+
 
 async function SetAStatus(req, res) {
     const temp = [];
@@ -77,5 +88,6 @@ async function SetAStatus(req, res) {
     Delete,
     Read,
     SetAStatus,
-    AssignProduct
+    AssignProduct,
+    ViewAssignedStaffs
   }
