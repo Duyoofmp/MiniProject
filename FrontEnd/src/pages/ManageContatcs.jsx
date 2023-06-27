@@ -77,13 +77,8 @@ const ManageContatcs = () => {
 
         <div className='staff' >
                 <h1 className='h2'>contacts</h1>
-<<<<<<< HEAD
-                <input onChange={(e) => search(e.target.value)}  type="text" />
+                <input onChange={(e) => search(e.target.value)}  placeholder='Search Contacts' type="text" />
 
-=======
-                <input type="text" placeholder='Search Contacts' />
-                <button>search</button>
->>>>>>> 09db38babf50ed80e7e9ad0586e101ef7b47887f
                 
                         
                 </div>

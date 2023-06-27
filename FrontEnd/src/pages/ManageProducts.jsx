@@ -60,13 +60,8 @@ const ManageProducts = () => {
         <div>
              <div className='staff' >
                 <h1 className='h2'>Products</h1>
-<<<<<<< HEAD
-                <input onChange={(e) => search(e.target.value)}  type="text" />
+                <input onChange={(e) => search(e.target.value)} placeholder='Search Products'  type="text" />
 
-=======
-                <input type="text" placeholder='Search Product' />
-                <button>search</button>
->>>>>>> 09db38babf50ed80e7e9ad0586e101ef7b47887f
                 
                         
                 </div>
