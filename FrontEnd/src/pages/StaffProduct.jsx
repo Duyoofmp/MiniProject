@@ -1,38 +1,97 @@
-import React from 'react';
-import StaffSidebar from '../components/StaffSidebar';
+import React, { useState, useEffect } from 'react';
+
+import Sidebar from '../components/Sidebar';
+import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { publicGateway } from '../services/gateway';
+import "./ManageProducts.css"
 
-function StaffProduct({ product }) {
+
+
+const ManageProducts = () => {
+    const [productArray, setProductArray] = useState([]);
   const navigate = useNavigate();
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        console.log(token,"sertyhgfds");
+        publicGateway
+          .post('/staff/GetProductsOfStaff',{},{
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          .then((res) => {
+            console.log(res.data);
+            setProductArray(res.data);
+           
+            console.log(productArray)
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, []);
+      const search=async (K)=>{
+        const token = localStorage.getItem('accessToken');
+        console.log(token);
+        publicGateway
+          .post(
+            '/staff/GetProductsOfStaff',
+            {Keyword:K},
+            {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+            setProductArray(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      
+      }
+      const navigateToPage = (productObj) => {
+        console.log(productObj.DocId)
+        navigate('/managerProductDetails',{state:{ProductId:productObj.DocId}});
+      };
+    return (
+        <Sidebar >
 
-  const navigateToPage = (productObj) => {
-    navigate('/managerProductDetails', { state: productObj });
-  };
+        <div>
+             <div className='staff' >
+                <h1 className='h2'>Assigned Products</h1>
+                <input onChange={(e) => search(e.target.value)} placeholder='Search Products'  type="text" />
 
-  return (
-    <StaffSidebar>
-      <div className='staff'>
-        <h1 className='h2'>Assigned Tasks</h1>
-      </div>
-      <div className="product-page">
-        <table border={5} width={1000} cellPadding={20}>
-          <tr height={70}>
-            <th>Number</th>
-            <th>Name</th>
-            <th>Id</th>
-            <th>View product</th>
-          </tr>
-          <tr height={50}>
-            <td>1</td>
-            <td>Vlsi banglore</td>
-            <td>vlsi banglore</td>
-            <td><button onClick={() => navigateToPage(product)}>click</button></td>
-          </tr>
-          {/* Rest of the table rows */}
-        </table>
-      </div>
-    </StaffSidebar>
-  );
-}
+                
+                        
+                </div>
+                
+               
+            <table border={5} width={1000} cellPadding={20}>
+                <tr height={70}>
+                    <th>Number</th>
+                    <th>name</th>
+                    <th>Id</th>
+                    
+                    <th>View Product</th>
+                </tr>
+                {productArray.map((product, index) => ( 
+               <tr key={index} height={70}>
+               <td>{index + 1}</td>
+               <td>{product.Name}</td>
+               <td>{product.DocId}</td>
+               <td>
+                 <button onClick={() => navigateToPage(product)}>click</button>
+               </td>
+             </tr>
+          ))}
+                 
+            </table>
+        </div>
+        </Sidebar>
+    );
+};
 
-export default StaffProduct;
+export default ManageProducts;

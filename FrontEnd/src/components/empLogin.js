@@ -23,7 +23,7 @@ export default function EmpLogin(){
         publicGateway.post('/LoginForStaff/LoginStaff',postData)
         .then((res)=>{
             console.log(res.data)
-            localStorage.setItem("accessToken", res.data)
+            localStorage.setItem("accessToken", res.data.Token)
             if(res.data!==false){
             return  navigate("/staffdashboard")
             }else{

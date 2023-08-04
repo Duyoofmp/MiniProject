@@ -142,6 +142,7 @@ const StaffDetails = () => {
   <div>
     <h3>Assigned Products</h3>
     {openProducts.map((product, index) => (
+
       <div key={index} className="product-card1">
         <p>{product.Name}</p>
       </div>
