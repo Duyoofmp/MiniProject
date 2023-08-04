@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import Sidebar from '../components/Sidebar';
-import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { publicGateway } from '../services/gateway';
 import "./ManageProducts.css"
+import StaffSidebar from '../components/StaffSidebar';
 
 
 
@@ -57,7 +56,7 @@ const ManageProducts = () => {
         navigate('/managerProductDetails',{state:{ProductId:productObj.DocId}});
       };
     return (
-        <Sidebar >
+        <StaffSidebar >
 
         <div>
              <div className='staff' >
@@ -90,7 +89,7 @@ const ManageProducts = () => {
                  
             </table>
         </div>
-        </Sidebar>
+        </StaffSidebar>
     );
 };
 

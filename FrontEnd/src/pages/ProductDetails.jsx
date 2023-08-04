@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 
 import { publicGateway } from '../services/gateway';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import './ProductDetails.css';
 import Sidebar from '../components/Sidebar';
@@ -14,6 +15,7 @@ const ProductDetails = () => {
 
   const navigate = useNavigate();
   const location = useLocation()
+  const [data, setData] = useState([]); 
 
 
   useEffect(() => {
@@ -43,6 +45,25 @@ const ProductDetails = () => {
       .then((res) => {
         console.log(res.data);
         setStaffs(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      publicGateway
+      .post('/product/GetAnalyticsOfProduct',{ProductId:location.state.ProductId},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data,"fhfvhv");
+         setData ( [
+          { name: 'Assigned', data: res.data.Assigned },
+          { name: 'Completed', data: res.data.Completed },
+          { name: 'Rejected', data: res.data.Rejected },
+          { name: 'Accepted', data: res.data.Accepted },
+        ]);
+       
       })
       .catch((err) => {
         console.log(err);
@@ -123,7 +144,16 @@ const ProductDetails = () => {
         )}
         {activeOption === 'productAnalytics' && (
           <div>
-          <p><Analytics/></p>
+          <p><div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <BarChart width={600} height={400} data={data}>
+        <CartesianGrid strokeDasharray="9 9" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="data" fill="#8884d8" />
+      </BarChart>
+    </div></p>
         </div>
         )}
       </div>

@@ -82,6 +82,26 @@ async function SetAStatus(req, res) {
             return res.json(false);
         })
 }
+
+async function AnalyticsOfProduct(req, res) {
+ 
+  let assigned;
+  let completed;
+  let accepted;
+  let rejected;
+
+
+  console.log(req.body)
+
+    assigned = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId],[false])
+    completed = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","!=","Open"],[false])
+    rejected = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","==","Rejected"],[false])
+    accepted = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","==","Accepted"],[false])
+  
+
+  return res.json({Completed:completed.length,Assigned:assigned.length,Rejected:rejected.length,Accepted:accepted.length})
+}
+
   module.exports = {
     Create,
     Update,
@@ -89,5 +109,6 @@ async function SetAStatus(req, res) {
     Read,
     SetAStatus,
     AssignProduct,
-    ViewAssignedStaffs
+    ViewAssignedStaffs,
+    AnalyticsOfProduct
   }

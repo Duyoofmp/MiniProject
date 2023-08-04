@@ -47,6 +47,12 @@ app.use(common.decodeIDToken)
     return AssignProduct.ViewAssignedStaffs(req, res);
   })
 
+  app.post('/GetAnalyticsOfProduct', async (req, res) => {
+    const Product = require("../Services/Products");
+    return Product.AnalyticsOfProduct(req, res);
+  })
+
+  
 
 exports.product = functions.runWith({ memory: '128MB' }).region("asia-south1").https.onRequest(app);
 

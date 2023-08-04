@@ -101,10 +101,32 @@ async function ContactListOfProduct(req, res) {
 
 
 
+async function AnalyticsOfStaff(req, res) {
+ 
+  let assigned;
+  let completed;
+  let accepted;
+  let rejected;
+
+
+  console.log(req.body)
+
+    assigned = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["StaffId","==",req.body.StaffId],[false])
+    completed = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["StaffId","==",req.body.StaffId,"Status","!=","Open"],[false])
+    rejected = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["StaffId","==",req.body.StaffId,"Status","==","Rejected"],[false])
+    accepted = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["StaffId","==",req.body.StaffId,"Status","==","Accepted"],[false])
+  
+
+  return res.json({Completed:completed.length,Assigned:assigned.length,Rejected:rejected.length,Accepted:accepted.length})
+}
+
+
+
 module.exports = {
   LoginStaff,
   Update,
   Read,
   ContactListOfProduct,
-  GetProductsOfStaff
+  GetProductsOfStaff,
+  AnalyticsOfStaff
 }

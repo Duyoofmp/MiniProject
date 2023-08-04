@@ -44,6 +44,12 @@ app.use(common.decodeIDToken)
   })
 
 
+  app.post('/GetAnalyticsOfStaff', async (req, res) => {
+    const Staff = require("../Services/Staff");
+    return Staff.AnalyticsOfStaff(req, res);
+  })
+
+
 
 exports.staff = functions.runWith({ memory: '128MB' }).region("asia-south1").https.onRequest(app);
 

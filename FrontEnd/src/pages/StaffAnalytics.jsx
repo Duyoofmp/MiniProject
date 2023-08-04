@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { publicGateway } from '../services/gateway';
+
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import StaffSidebar from '../components/StaffSidebar';
 
 
 const Analytics = () => {
   // Generate random data values
-  const assigned = Math.floor(Math.random() * 100) + 1; // Random assigned value between 1 and 100
-  const completed = Math.floor(Math.random() * (assigned - 1)) + 1; // Random completed value between 1 and assigned-1
-  const accepted = Math.floor(Math.random() * completed); // Random accepted value between 0 and completed
-  const rejected = completed - accepted; // Calculate rejected based on completed and accepted
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        console.log(token);
+        publicGateway
+          .post('/staff/GetAnalyticsOfStaff',{},{
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          .then((res) => {
+            setData ( [
+              { name: 'Assigned', data: res.data.Assigned },
+              { name: 'Completed', data: res.data.Completed },
+              { name: 'Rejected', data: res.data.Rejected },
+              { name: 'Accepted', data: res.data.Accepted },
+            ]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, []);
+  
 
-  const data = [
-    { name: 'Assigned', data: assigned },
-    { name: 'Completed', data: completed },
-    { name: 'Rejected', data: rejected },
-    { name: 'Accepted', data: accepted },
-  ];
 
   return (
     <StaffSidebar>

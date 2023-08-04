@@ -364,7 +364,6 @@ module.exports = {
     //arrayUnion,
     RandomId,
 
-    substract,
     ParamsToFirestoreFields,
     createKeywords,
 
