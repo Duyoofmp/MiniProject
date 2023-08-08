@@ -106,9 +106,7 @@ const ProductDetails = () => {
               <p>{product.Description}</p>
             </div>
           </div>
-          <button className="assign-staff-button" onClick={handleAssignStaffClick}>
-            Assign Staff
-          </button>
+          
         </div>
 
         <div className="product-nav">

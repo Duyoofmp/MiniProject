@@ -25,6 +25,10 @@ const Analytics = () => {
               { name: 'Completed', data: res.data.Completed },
               { name: 'Rejected', data: res.data.Rejected },
               { name: 'Accepted', data: res.data.Accepted },
+              { name: 'ChangeRequested', data: res.data.ChangeRequested },
+
+
+              
             ]);
           })
           .catch((err) => {
@@ -37,7 +41,7 @@ const Analytics = () => {
   return (
     <StaffSidebar>
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <BarChart width={600} height={400} data={data}>
+      <BarChart width={800} height={400} data={data}>
         <CartesianGrid strokeDasharray="9 9" />
         <XAxis dataKey="name" />
         <YAxis />

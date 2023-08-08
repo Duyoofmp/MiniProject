@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { publicGateway } from '../services/gateway';
+import { publicGateway } from '../services/gateway'
+import { useNavigate } from 'react-router-dom';
+;
 
 
 const ReportIssue = () => {
   const [issue,setIssue]=useState("")
+  const navigate = useNavigate();
   
   const AddIssue = () => {
     const issueData = {
@@ -13,7 +16,7 @@ const ReportIssue = () => {
     const token = localStorage.getItem('accessToken');
 console.log(issueData)
     publicGateway
-      .post('/report/CreateReport', issueData, {
+      .post('/report/CreateReport', {...issueData,Status:"Pending"}, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -23,8 +26,10 @@ console.log(issueData)
         if (res.data === false) {
           alert('Error occurred');
         } else {
-          alert('Successfully added Issue');
+          
           setIssue("")
+    navigate('/comment');
+          
 
         }
       })

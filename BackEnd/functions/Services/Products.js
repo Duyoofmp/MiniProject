@@ -70,6 +70,16 @@ async function ViewAssignedStaffs(req, res) {
   return res.json(await Promise.all(temp))
 }
 
+async function GetAssignedContacts(req, res) {
+  const temp = [];
+  const pro = await db.collection("Leads").where("ProductId","==",req.body.ProductId).where("StaffId","==",req.body.StaffId).where("Status","==",req.body.Status).get();
+  pro.forEach(docs => {
+    temp.push(dataHandling.Read("Contacts", docs.data().ContactId))
+  })
+  return res.json(await Promise.all(temp))
+}
+
+
 
 async function SetAStatus(req, res) {
     const temp = [];
@@ -89,6 +99,7 @@ async function AnalyticsOfProduct(req, res) {
   let completed;
   let accepted;
   let rejected;
+  let change;
 
 
   console.log(req.body)
@@ -97,9 +108,10 @@ async function AnalyticsOfProduct(req, res) {
     completed = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","!=","Open"],[false])
     rejected = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","==","Rejected"],[false])
     accepted = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","==","Accepted"],[false])
-  
+    change = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","==","ChangeProduct"],[false])
 
-  return res.json({Completed:completed.length,Assigned:assigned.length,Rejected:rejected.length,Accepted:accepted.length})
+  console.log(change.length)
+  return res.json({Completed:completed.length,Assigned:assigned.length,Rejected:rejected.length,Accepted:accepted.length,ChangeRequested:change.length})
 }
 
   module.exports = {
@@ -110,5 +122,6 @@ async function AnalyticsOfProduct(req, res) {
     SetAStatus,
     AssignProduct,
     ViewAssignedStaffs,
-    AnalyticsOfProduct
+    AnalyticsOfProduct,
+    GetAssignedContacts
   }

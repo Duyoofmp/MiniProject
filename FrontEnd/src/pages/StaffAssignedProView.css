@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.product-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #c2d0e6;
+}
+
+.product-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.product-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile-info {
+  text-align: center;
+}
+
+.product-profile h2 {
+  margin-bottom: 5px;
+}
+
+.product-nav {
+  margin-bottom: 20px;
+}
+
+.product-nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.product-nav li {
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.product-nav li:hover {
+  background-color: #4a90e2;
+}
+
+.product-nav li.active {
+  background-color: #4a90e2;
+}
+
+.product-details {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-details div.active {
+  display: block;
+}
+
+.contact-card {
+  background-color: #e0eaf5;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 96%;
+}
+
+.contact-card p {
+  margin: 5px 0;
+}
+
+.contact-card input[type="radio"] {
+  margin-right: 5px;
+}
+
+.contact-card input[type="radio"]:last-child {
+  margin-right: 0;
+}
+
+.contact-card label {
+  margin-right: 10px;
+}
+
+.contact-card select {
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.contact-card button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #FF7F50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-assigned-contacts-button,
+.view-analytics-button {
+  background-color: #FF7F50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.analytics-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+
+/* Additional styles for the BarChart */
+div[style*="height: 100vh;"] {
+  margin-top: 20px;
+}
+
+/* ... (existing CSS code) */
+
+/* Additional styles for the drop-down menu */
+.contact-card select {
+    margin-top: 10px;
+    padding: 5px;
+  }
+  
+  .contact-card button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #FF7F50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

@@ -51,6 +51,12 @@ app.use(common.decodeIDToken)
     const Product = require("../Services/Products");
     return Product.AnalyticsOfProduct(req, res);
   })
+  app.post('/GetAssignedContacts', async (req, res) => {
+    const Product = require("../Services/Products");
+    return Product.GetAssignedContacts(req, res);
+  })
+
+  
 
   
 

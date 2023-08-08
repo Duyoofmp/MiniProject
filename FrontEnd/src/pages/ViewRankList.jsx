@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
+import { publicGateway } from '../services/gateway';
+
 
 const ViewRankList = () => {
+    const [rankList, setRankList] = useState([]);
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    publicGateway
+      .post('/staff/RankList', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+      setRankList(res.data)
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
     return (
         <Sidebar >
 
@@ -16,50 +37,28 @@ const ViewRankList = () => {
 
                 </div>
             <table  border={5} width={1200} cellPadding={20} >
-                <tr height={70}>
+            <tr height={70}>
                     <th>Rank</th>
                     <th>Staff Name</th>
                     <th>Staff ID</th>
                     <th>Designation</th>
                     
                 </tr>
-                <tr height={70}>
-                    <td>1</td>
-                    <td>Thanveer</td>
-                    <td>153</td>
-                    <td>Team Coordinator</td>
-                    
-                </tr>
-                <tr height={70}>
-                    <td>2</td>
-                    <td>Duyoof</td>
-                    <td>353</td>
-                    <td>Manager</td>
-                </tr>
-                <tr height={70}>
-                    <td>3</td>
-                    <td>Angel</td>
-                    <td>53</td>
-                    <td>Team Leader</td>
-                </tr>
-                <tr height={70}>
-                    <td>4</td>
-                    <td>Ihjaz</td>
-                    <td>363</td>
-                    <td>Asst Manager</td>
-                </tr>
-                <tr height={70}>
-                    <td>5</td>
-                    <td>Unni</td>
-                    <td>100</td>
-                    <td>Team member</td>
-                </tr>
-                <tr height={70}>
-                    <td>6</td>
-                    <td>Robin</td>
-                    <td>523</td>
-                    <td>Manager</td>
-                </tr>
+            {rankList.map((staff, index) => (
+            
+            <tr key={staff.DocId} height={70}>
+              <td>{index + 1}</td>
+
+            <td>{staff.Name}</td>
+            <td>{staff.DocId}</td>
+            <td>{staff.Designation}</td>
+
+          </tr>
+          ))}
+
+               
+               
+                
             </table>
 
         </div>

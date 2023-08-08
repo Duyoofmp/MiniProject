@@ -37,6 +37,12 @@ async function Read(req, res) {
   const data = await dataHandling.Read("Staffs", req.body.StaffId, req.body.index, req.body.Keyword);
   return res.json(data)
 }
+async function RankList(req, res) {
+  console.log(req.body.StaffId,"hgygyugyujg")
+  const data = await dataHandling.Read("Staffs", undefined, undefined, undefined,1000,undefined,[true,"Rank","desc"]);
+  return res.json(data)
+}
+
 
 async function GetProductsOfStaff(req, res) {
   const temp = [];
@@ -107,6 +113,7 @@ async function AnalyticsOfStaff(req, res) {
   let completed;
   let accepted;
   let rejected;
+  let change;
 
 
   console.log(req.body)
@@ -115,9 +122,25 @@ async function AnalyticsOfStaff(req, res) {
     completed = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["StaffId","==",req.body.StaffId,"Status","!=","Open"],[false])
     rejected = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["StaffId","==",req.body.StaffId,"Status","==","Rejected"],[false])
     accepted = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["StaffId","==",req.body.StaffId,"Status","==","Accepted"],[false])
+    change = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["StaffId","==",req.body.StaffId,"Status","==","ChangeProduct"],[false])
+
   
 
-  return res.json({Completed:completed.length,Assigned:assigned.length,Rejected:rejected.length,Accepted:accepted.length})
+  return res.json({Completed:completed.length,Assigned:assigned.length,Rejected:rejected.length,Accepted:accepted.length,ChangeRequested:change.length})
+}
+async function UpdateLead(req, res) {
+console.log(req.body)
+
+dataHandling.Update("Leads",req.body,req.body.ContactId+"_"+req.body.ProductId)
+      .then(snap => {
+        console.log(true)
+          return res.json(true);
+      })
+      .catch(err => {
+        console.log(err)
+          return res.json(false);
+      })
+
 }
 
 
@@ -128,5 +151,7 @@ module.exports = {
   Read,
   ContactListOfProduct,
   GetProductsOfStaff,
-  AnalyticsOfStaff
+  AnalyticsOfStaff,
+  UpdateLead,
+  RankList
 }

@@ -12,6 +12,10 @@ const StaffDetails = () => {
   const [staffDetails, setStaffDetails] = useState({});
   const [openProducts, setOpenProducts] = useState([]);
   const [rejectedProducts, setRejectedProducts] = useState([]);
+  const [changeProducts, setChangeProducts] = useState([]);
+
+  
+  
 
   const [acceptedProducts, setAcceptedProducts] = useState([]);
   const [data, setData] = useState([]); 
@@ -74,6 +78,19 @@ const StaffDetails = () => {
         console.log(err);
       });
       publicGateway
+      .post('/staff/GetProductsOfStaff',{StaffId:location.state.StaffId,Status:"ChangeProduct"},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+       // console.log(res.data);
+        setChangeProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      publicGateway
       .post('/staff/GetAnalyticsOfStaff',{StaffId:location.state.StaffId},{
         headers: {
           'Authorization': `Bearer ${token}`
@@ -86,6 +103,8 @@ const StaffDetails = () => {
           { name: 'Completed', data: res.data.Completed },
           { name: 'Rejected', data: res.data.Rejected },
           { name: 'Accepted', data: res.data.Accepted },
+          { name: 'ChangeRequested', data: res.data.ChangeRequested },
+          
         ]);
        
       })
@@ -151,6 +170,12 @@ const StaffDetails = () => {
               Rejected Products
             </li>
             <li
+              className={activeOption === 'changeProducts' ? 'active' : ''}
+              onClick={() => handleOptionClick('changeProducts')}
+            >
+              ChangeRequested Products
+            </li>
+            <li
               className={activeOption === 'analytics' ? 'active' : ''}
               onClick={() => handleOptionClick('analytics')}
             >
@@ -187,7 +212,20 @@ const StaffDetails = () => {
         {activeOption === 'rejectedProducts' && (
           <div>
             <h3>Rejected Products</h3>
+            
             {rejectedProducts.map((product, index) => (
+            <div className="product-card1">
+              <p>{product.Name}</p>
+            </div>
+    ))}
+           
+          </div>
+        )}
+        {activeOption === 'changeProducts' && (
+          <div>
+            <h3> ChangedRequested Products</h3>
+            
+            {changeProducts.map((product, index) => (
             <div className="product-card1">
               <p>{product.Name}</p>
             </div>
@@ -198,7 +236,7 @@ const StaffDetails = () => {
         {activeOption === 'analytics' && (
           <div>
             <p> <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <BarChart width={600} height={400} data={data}>
+      <BarChart width={800} height={400} data={data}>
         <CartesianGrid strokeDasharray="9 9" />
         <XAxis dataKey="name" />
         <YAxis />
