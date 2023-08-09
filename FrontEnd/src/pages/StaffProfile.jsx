@@ -1,17 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+
 import './StaffProfile.css';
 import StaffSidebar from '../components/StaffSidebar';
+import { publicGateway } from "../services/gateway";
+import { useNavigate } from 'react-router-dom';
+
 
 const Profile = () => {
-  const [name, setName] = useState('John Doe');
-  const [designation, setDesignation] = useState('Software Engineer');
-  const [email, setEmail] = useState('john.doe@example.com');
+  const [name, setName] = useState('');
+  const [designation, setDesignation] = useState('');
+  const [email, setEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState('********');
-  const [phoneNumber, setPhoneNumber] = useState('123-456-7890');
+  const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [profileImage, setProfileImage] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
+  const [staff, setStaff] = useState({});
+  const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
+  console.log(token);
+  useEffect(() => {
 
+    
+    publicGateway
+      .post(
+        "/staff/ViewStaffs",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setEmail(res.data.Email)
+        setName(res.data.Name)
+
+        setDesignation(res.data.Designation)
+        setPassword(res.data.Password)
+        setPhoneNumber(res.data.PhoneNo)
+
+
+
+        setStaff(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -54,6 +91,30 @@ const Profile = () => {
   };
 
   const handleSaveClick = () => {
+    publicGateway
+    .post(
+      "/staff/UpdateStaff",
+      {Email:email,
+      Name:name,
+      Designation:designation,
+      Password:password,
+      PhoneNo:phoneNumber
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => {
+      console.log(true);
+      navigate('/profile',);
+
+      
+    })
+    .catch((err) => {
+      console.log(err);
+    });
     setIsEditMode(false);
     // Save the updated profile information here
   };
@@ -64,21 +125,7 @@ const Profile = () => {
   return (
     <StaffSidebar>
       <div className="profile">
-        <div className="profile-picture-container">
-          {isEditMode ? (
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleProfileImageChange}
-            />
-          ) : (
-            <img
-              className="profile-picture"
-              src={profileImage || defaultProfileImage}
-              alt="Profile Picture"
-            />
-          )}
-        </div>
+        
         <h1 className="profile-name">
           {isEditMode ? (
             <input type="text" value={name} onChange={handleNameChange} />
@@ -101,6 +148,7 @@ const Profile = () => {
           <li>
             <strong>Email:</strong>{' '}
             {isEditMode ? (
+              
               <input type="email" value={email} onChange={handleEmailChange} />
             ) : (
               email
@@ -110,20 +158,14 @@ const Profile = () => {
             <strong>Password:</strong>{' '}
             {isEditMode ? (
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword? "text":"******"}
                 value={password}
                 onChange={handlePasswordChange}
               />
             ) : (
-              '******'
+             password
             )}
-            {isEditMode && (
-              <input
-                type="checkbox"
-                checked={showPassword}
-                onChange={handleShowPasswordToggle}
-              />
-            )}
+          
           </li>
           <li>
             <strong>Phone Number:</strong>{' '}

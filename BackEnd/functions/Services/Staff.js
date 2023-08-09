@@ -27,7 +27,7 @@ async function LoginStaff(req, res) {
 
 async function Update(req, res) {
   req.body.index = Date.now()
-  await dataHandling.Update("Staffs", req.body, req.body.DocId)
+  await dataHandling.Update("Staffs", req.body, req.body.StaffId)
   return res.json(true)
 }
 
