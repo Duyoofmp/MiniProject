@@ -33,9 +33,7 @@ const Dashboard = () => {
         <StaffSidebar>
             <div>
                 <h1 className='dashboard-heading'>Dashboard</h1>
-                <div className='req-btn'>
-                    <button className="change-product-btn">Request to change Product</button>
-                </div>
+                
                 <div className="options">
                     {divData.map((item, index) => (
                         <Link to={`/new-page/${item.id}`} key={item.id}>

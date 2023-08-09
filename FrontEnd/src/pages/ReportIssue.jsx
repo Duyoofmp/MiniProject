@@ -1,15 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { publicGateway } from '../services/gateway'
+import { useNavigate } from 'react-router-dom';
+;
+
 
 const ReportIssue = () => {
+  const [issue,setIssue]=useState("")
+  const navigate = useNavigate();
+  
+  const AddIssue = () => {
+    const issueData = {
+      Issue:issue
+    };
+    const token = localStorage.getItem('accessToken');
+console.log(issueData)
+    publicGateway
+      .post('/report/CreateReport', {...issueData,Status:"Pending"}, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data === false) {
+          alert('Error occurred');
+        } else {
+          
+          setIssue("")
+    navigate('/comment');
+          
+
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <form>
         <fieldset style={formFieldsetStyle}>
           <label style={formLabelStyle}>Issue</label>
-          <textarea style={formInputStyle}></textarea>
+          <textarea value={issue}  onChange={(e) => setIssue(e.target.value)} style={formInputStyle}></textarea>
           <br /><br />
-          <input type="submit" style={formButtonStyle} /><br /><br />
+          <input onClick={AddIssue}type="button" value={"Submit"} style={formButtonStyle} /><br /><br />
           <input type="reset" style={formButtonStyle} /><br /><br />
         </fieldset>
       </form>

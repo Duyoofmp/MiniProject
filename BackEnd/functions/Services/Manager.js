@@ -3,6 +3,7 @@ const ServiceAccount = require("../config/ServiceAccount.json")
 const com=require("../common")
 
 const admin = require('firebase-admin');
+const moment = require('moment-timezone')
 
 
 
@@ -13,7 +14,7 @@ async function RegisterManager(req, res) {
         const createUser=await  admin.auth().createUser({email:Email,password: Password,phoneNumber:String(PhoneNo),displayName:Name});
         await dataHandling.Create("Managers",{...req.body},createUser.uid)
         console.log(createUser.uid)
-        const token=await com.GenerateToken({ManagerId:createUser.uid})
+        const token=await com.GenerateToken({Role:"Manager",ManagerId:createUser.uid})
 
         return res.json({token:token})
     } catch (error) {
@@ -31,7 +32,7 @@ async function LoginManager(req, res) {
          
 
         if(manData.Password===Password){
-            const token=await com.GenerateToken({ManagerId:createUser.uid})
+            const token=await com.GenerateToken({Role:"Manager",ManagerId:createUser.uid})
 
          return res.json(token)
         
@@ -66,8 +67,36 @@ async function CreateStaff(req, res) {
 }
 
 
+async function ReadChangeReq(req, res) {
+    try {
+        
+        const Leads=  await dataHandling.Read("Leads",undefined,undefined,undefined,1000,["Status","==","ChangeProduct"],[false])
+       
+        return res.json(Leads)
+    } catch (error) {
+        console.log(error)
+        return res.json(false)
+    }
+}
+
+async function AcceptChangeReq(req, res) {
+    try {
+    const today = moment().tz('Asia/Kolkata');
+        
+        const Leads=  await dataHandling.Read("Leads",undefined,undefined,undefined,1000,["Status","==","ChangeProduct"],[false])
+        const creat=await dataHandling.Create("Leads",{ContactId:req.body.ContactId,ProductId:req.body.ChangeProductId,StaffId: req.body.StaffId, Status: "Open", index: Date.now(), Date: today.format('YYYY-MM-DD')},req.body.ContactId + "_" + req.body.ChangeProductId)
+     const delet =await dataHandling.Delete("Leads",req.body.ContactId + "_" + req.body.ProductId)
+        return res.json(true)
+    } catch (error) {
+        console.log(error)
+        return res.json(false)
+    }
+}
+
 module.exports = {
     RegisterManager,
     LoginManager,
-    CreateStaff
+    CreateStaff,
+    ReadChangeReq,
+    AcceptChangeReq
 }

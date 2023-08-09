@@ -26,6 +26,10 @@ app.use(common.decodeIDToken)
     const Staff = require("../Services/Staff");
     return Staff.Read(req, res);
   })
+  app.post('/RankList', async (req, res) => {
+    const Staff = require("../Services/Staff");
+    return Staff.RankList(req, res);
+  })
   
   app.post('/GetProductsOfStaff', async (req, res) => {
     const Staff = require("../Services/Staff");
@@ -38,9 +42,15 @@ app.use(common.decodeIDToken)
     return Staff.ContactListOfProduct(req, res);
   })
   
-  app.post('/SetLeadStatus', async (req, res) => {
-    const AssignProduct = require("../Services/Products");
-    return AssignProduct.SetAStatus(req, res);
+  app.post('/updateLead', async (req, res) => {
+    const staffs = require("../Services/Staff");
+    return staffs.UpdateLead(req, res);
+  })
+
+
+  app.post('/GetAnalyticsOfStaff', async (req, res) => {
+    const Staff = require("../Services/Staff");
+    return Staff.AnalyticsOfStaff(req, res);
   })
 
 
@@ -55,5 +65,5 @@ app3.post('/LoginStaff', async (req, res) => {
   const Staff = require("../Services/Staff");
   return Staff.LoginStaff(req, res);
 })
-exports.LoginForStaff = functions.runWith({ memory: '128MB' }).region("asia-south1").https.onRequest(app3);
+exports.LoginForStaff = functions.runWith({ memory: '128MB',timeoutSeconds:540  }).region("asia-south1").https.onRequest(app3);
 

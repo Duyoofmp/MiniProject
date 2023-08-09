@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import StaffSidebar from '../components/StaffSidebar';
 import { useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
+import { publicGateway } from '../services/gateway';
 
 
 
 const Comment = () => {
+  const [reports, setReports] = useState([]);
+  const navigate = useNavigate();
   
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    publicGateway
+      .post('/report/ViewReportsOfStaff', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+      setReports(res.data)
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
     
     return (
@@ -24,13 +46,17 @@ const Comment = () => {
               <th>Reported Issues</th>
               <th>Status</th>
 
+            </tr>
+            {reports.map((repo, index) => (
+            
+              <tr key={repo.DocId} height={70}>
+                <td>{index + 1}</td>
 
+              <td>{repo.Issue}</td>
+              <td>{repo.Status}</td>
             </tr>
-            <tr height={50}>
-              <td>1</td>
-              <td>Heavy work this week</td>
-              <td>Pending</td>
-            </tr>
+            ))}
+
           </table>
         </div>
       </StaffSidebar>

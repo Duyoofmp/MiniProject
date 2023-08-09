@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import { publicGateway } from '../services/gateway';
+import StaffSidebar from '../components/StaffSidebar';
 
 
-const ViewRankList = () => {
+const StaffRankList = () => {
     const [rankList, setRankList] = useState([]);
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -24,7 +25,7 @@ const ViewRankList = () => {
   }, []);
 
     return (
-        <Sidebar >
+        <StaffSidebar >
 
         <div>
             <div className='staff' >
@@ -62,8 +63,8 @@ const ViewRankList = () => {
             </table>
 
         </div>
-        </Sidebar>
+        </StaffSidebar>
     );
 };
 
-export default  ViewRankList;
+export default  StaffRankList;

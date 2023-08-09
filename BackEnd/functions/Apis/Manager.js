@@ -32,6 +32,22 @@ app.use(common.decodeIDToken)
 
 
 
+  app.post('/ViewChangeRequests', async (req, res) => {
+    const Man = require("../Services/Manager");
+    
+    return Man.ReadChangeReq(req, res);
+  })
+  app.post('/AcceptChangeReq', async (req, res) => {
+    const Man = require("../Services/Manager");
+    
+    return Man.AcceptChangeReq(req, res);
+  })
+  
+
+  
+
+
+
 
 exports.manager = functions.runWith({ memory: '128MB' }).region("asia-south1").https.onRequest(app);
 

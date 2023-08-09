@@ -26,7 +26,8 @@ const contact = require("./Apis/Contacts");
 exports.contact = contact.contact;
 
 
-
+const report = require("./Apis/Reports");
+exports.report = report.report;
 
 
 
@@ -41,3 +42,15 @@ exports.contact = contact.contact;
 const stafftrigger = require("./triggers/staffs");
 exports.OnStaffCreate = stafftrigger.OnStaffCreate;
 exports.OnStaffUpdate = stafftrigger.OnStaffUpdate;
+
+
+const contactTirgger = require("./triggers/contacts");
+exports.OnContactCreate = contactTirgger.OnContactCreate;
+exports.OnContactUpdate = contactTirgger.OnContactUpdate;
+
+const productTrigger = require("./triggers/products");
+exports.OnProductUpdate = productTrigger.OnProductUpdate;
+exports.OnProductCreate = productTrigger.OnProductCreate;
+
+const LeadTrigger = require("./triggers/leads");
+exports.AssignedProductsUpdate = LeadTrigger.AssignedProductsUpdate;

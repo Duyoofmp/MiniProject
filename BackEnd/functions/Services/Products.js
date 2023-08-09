@@ -41,7 +41,7 @@ async function Create(req, res) {
   }
   
   async function Read(req, res) {
-    const data = await dataHandling.Read("Products", req.body.DocId, req.body.index, req.body.Keyword);
+    const data = await dataHandling.Read("Products", req.body.DocId, req.body.index, req.body.Keyword,1000,["ManagerId","==",req.body.ManagerId]);
     return res.json(data)
   }
 
@@ -52,13 +52,34 @@ async function AssignProduct(req, res) {
     const today = moment().tz('Asia/Kolkata');
     
         req.body.ContactIds.forEach(Contactid => {
-            temp.push(db.collection("Leads").doc(Contactid + "_" + req.body.ProductId).set({ProductId:req.body.ProductId,StaffId: req.body.StaffId, Status: "Open", index: Date.now(), Date: today.format('YYYY-MM-DD')}, { "merge": true }))
+            temp.push(db.collection("Leads").doc(Contactid + "_" + req.body.ProductId).set({ContactId:Contactid,ProductId:req.body.ProductId,StaffId: req.body.StaffId, Status: "Open", index: Date.now(), Date: today.format('YYYY-MM-DD')}, { "merge": true }))
         })
     
 
     await Promise.all(temp)
     return res.json(true)
 }
+async function ViewAssignedStaffs(req, res) {
+  const temp = [];
+  
+
+  const pro = await db.collection("Leads").where("ProductId","==",req.body.ProductId).get();
+  pro.forEach(docs => {
+    temp.push(dataHandling.Read("Staffs", docs.data().StaffId))
+  })
+  return res.json(await Promise.all(temp))
+}
+
+async function GetAssignedContacts(req, res) {
+  const temp = [];
+  const pro = await db.collection("Leads").where("ProductId","==",req.body.ProductId).where("StaffId","==",req.body.StaffId).where("Status","==",req.body.Status).get();
+  pro.forEach(docs => {
+    temp.push(dataHandling.Read("Contacts", docs.data().ContactId))
+  })
+  return res.json(await Promise.all(temp))
+}
+
+
 
 async function SetAStatus(req, res) {
     const temp = [];
@@ -71,11 +92,36 @@ async function SetAStatus(req, res) {
             return res.json(false);
         })
 }
+
+async function AnalyticsOfProduct(req, res) {
+ 
+  let assigned;
+  let completed;
+  let accepted;
+  let rejected;
+  let change;
+
+
+  console.log(req.body)
+
+    assigned = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId],[false])
+    completed = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","!=","Open"],[false])
+    rejected = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","==","Rejected"],[false])
+    accepted = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","==","Accepted"],[false])
+    change = await dataHandling.Read("Leads", undefined,undefined,undefined,10000,["ProductId","==",req.body.ProductId,"Status","==","ChangeProduct"],[false])
+
+  console.log(change.length)
+  return res.json({Completed:completed.length,Assigned:assigned.length,Rejected:rejected.length,Accepted:accepted.length,ChangeRequested:change.length})
+}
+
   module.exports = {
     Create,
     Update,
     Delete,
     Read,
     SetAStatus,
-    AssignProduct
+    AssignProduct,
+    ViewAssignedStaffs,
+    AnalyticsOfProduct,
+    GetAssignedContacts
   }

@@ -1,8 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import "./ViewChangeRequest.css"
+import { useNavigate } from 'react-router-dom';
+
+import { publicGateway } from '../services/gateway';
+
 
 const ViewChangeRequest = () => {
+  const [reports, setReports] = useState([]);
+
+    const navigate = useNavigate();
+
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    useEffect(() => {
+        
+        publicGateway
+          .post('/manager/ViewChangeRequests', {}, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          .then((res) => {
+           setReports(res.data)
+            
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, []);
+      const handleAccept = (news) => {
+        console.log(news)
+        publicGateway
+          .post('/manager/AcceptChangeReq', {...news}, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+          .then((res) => {
+            console.log(true);
+            window.location.reload();
+    
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+    
+    
     return (
         <Sidebar >
 
@@ -19,100 +64,26 @@ const ViewChangeRequest = () => {
             <table  border={5} width={1200} cellPadding={20} >
                 <tr height={70}>
                     <th>no</th>
-                    <th>Request from</th>
-                    <th>Request raised by</th>
-                    <th>old product</th>
-                    <th>New product</th>
-                    <th>status</th>
+                    <th>Requested StaffId</th>
+                    <th>ContactId</th>
+                    <th>Old ProductId</th>
+
+                    <th>New ProductId</th>
+                    <th></th>
+
+
                 </tr>
-                <tr height={70}>
-                    <td>1</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>2</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>3</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>4</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>5</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>6</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>7</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>8</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>9</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>10</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
-                <tr height={70}>
-                    <td>11</td>
-                    <td>sajith</td>
-                    <td>answara</td>
-                    <td>fitness-kerala</td>
-                    <td>Accounting-kerala</td>
-                    <td>pending</td>
-                </tr>
+                {reports.map((repo, index) => (
+              <tr key={repo.DocId} height={70}>
+                <td>{index + 1}</td>
+                <td>{repo.StaffId}</td>
+                <td>{repo.ContactId}</td>
+                <td>{repo.ProductId}</td>
+                <td>{repo.ChangeProductId}</td>
+                <button onClick={() => handleAccept(repo)}>Accept</button>
+              </tr>
+            ))} 
+               
             </table>
         </div>
         </Sidebar>

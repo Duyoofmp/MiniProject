@@ -1,10 +1,7 @@
-
-const logger=require('harislogger')
+const logger = require("harislogger");
 const admin = require("firebase-admin");
 const db = admin.firestore();
-const functions = require('firebase-functions');
-
-
+const functions = require("firebase-functions");
 
 async function Create(collectionName, data, docName, index = true) {
     delete data.PreviousData;
@@ -14,8 +11,10 @@ async function Create(collectionName, data, docName, index = true) {
                 data.index = Date.now();
             }
             if (docName !== undefined) {
-
-                await db.collection(collectionName).doc(docName).set(data,{ "merge": true });
+                await db
+                    .collection(collectionName)
+                    .doc(docName)
+                    .set(data, { merge: true });
                 resolve(true);
             } else {
                 const done = await db.collection(collectionName).add(data);
@@ -36,7 +35,10 @@ async function Update(collectionName, data, docName, LastUpdated = true) {
             if (data.LastUpdated === undefined && LastUpdated) {
                 data.LastUpdated = Date.now();
             }
-            await db.collection(collectionName).doc(docName).set(data, { "merge": true });
+            await db
+                .collection(collectionName)
+                .doc(docName)
+                .set(data, { merge: true });
             resolve(true);
         } catch (error) {
             logger.log(error);
@@ -59,8 +61,15 @@ async function Delete(collectionName, docName) {
     });
 }
 
-async function Read(collectionName, docName=undefined, index, Keyword, limit = 1000, where, orderBy = [true, "index", "desc"]) {
-
+async function Read(
+    collectionName,
+    docName = undefined,
+    index,
+    Keyword,
+    limit = 1000,
+    where,
+    orderBy = [true, "index", "desc"]
+) {
     let query;
     if (docName === undefined || docName === "") {
         query = db.collection(collectionName);
@@ -68,12 +77,24 @@ async function Read(collectionName, docName=undefined, index, Keyword, limit = 1
             query = query.where("Keywords", "array-contains", Keyword.toLowerCase());
         }
         if (where !== undefined) {
-            for (let where_index = 0; where_index < where.length; where_index = where_index + 3) {
-                query = query.where(where[where_index], where[where_index + 1], where[where_index + 2])
+            for (
+                let where_index = 0;
+                where_index < where.length;
+                where_index = where_index + 3
+            ) {
+                query = query.where(
+                    where[where_index],
+                    where[where_index + 1],
+                    where[where_index + 2]
+                );
             }
         }
         if (orderBy[0] === true) {
-            for (let orderByIndex = 1; orderByIndex < orderBy.length; orderByIndex = orderByIndex + 2) {
+            for (
+                let orderByIndex = 1;
+                orderByIndex < orderBy.length;
+                orderByIndex = orderByIndex + 2
+            ) {
                 query = query.orderBy(orderBy[orderByIndex], orderBy[orderByIndex + 1]);
             }
         }
@@ -82,9 +103,8 @@ async function Read(collectionName, docName=undefined, index, Keyword, limit = 1
             const snapshot = await db.collection(collectionName).doc(index).get();
             query = query.startAfter(snapshot);
         }
-    }
-    else {
-        query = db.collection(collectionName).doc(docName)
+    } else {
+        query = db.collection(collectionName).doc(docName);
     }
     return new Promise(async (resolve, reject) => {
         try {
@@ -99,18 +119,15 @@ async function Read(collectionName, docName=undefined, index, Keyword, limit = 1
                     }
                 });
                 resolve(temp);
-            }
-            else {
+            } else {
                 const dat = await query.get();
                 if (dat.exists) {
                     resolve({ ...dat.data(), DocId: dat.id });
-                }
-                else {
+                } else {
                     resolve(null);
                 }
             }
-        }
-        catch (error) {
+        } catch (error) {
             logger.error(error);
             logger.warn(error);
             reject(false);
@@ -118,84 +135,49 @@ async function Read(collectionName, docName=undefined, index, Keyword, limit = 1
     });
 }
 
-
 const createKeywords = (name, resultArr) => {
     function containsNonLatinCodepoints(s) {
         return /[^\u0000-\u00ff]/.test(s);
     }
-    if (name === undefined || name === null) { name = "" }
+    if (name === undefined || name === null) {
+        name = "";
+    }
     name = String(name);
-    let curName = '';
+    let curName = "";
     let temp = name;
-    let len = name.split(' ').length;
+    let len = name.split(" ").length;
     for (let i = 0; i < len; i++) {
-        for (let k = 0; k < temp.split('').length; k++) {
-            letter = temp[k]
+        for (let k = 0; k < temp.split("").length; k++) {
+            letter = temp[k];
             curName += letter.toLowerCase();
-            if (!resultArr.includes(curName) && !containsNonLatinCodepoints(curName)) {
+            if (
+                !resultArr.includes(curName) &&
+                !containsNonLatinCodepoints(curName)
+            ) {
                 resultArr.push(curName);
             }
         }
-        temp = temp.split(' ')
+        temp = temp.split(" ");
         temp.splice(0, 1);
-        temp = temp.join(" ")
-        curName = '';
+        temp = temp.join(" ");
+        curName = "";
     }
-}
-
+};
 
 const Check = (Field) => {
     if (Field === null || Field === undefined || Field === "") {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
-}
+};
 //const increment = admin.firestore.FieldValue.increment
 //const arrayUnion = admin.firestore.FieldValue.arrayUnion;
 
-const RandomId = (collectionName) => admin.firestore().collection(collectionName).doc().id
+const RandomId = (collectionName) =>
+    admin.firestore().collection(collectionName).doc().id;
 
-function substract(b, c) {
-    let tens = [10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000]
 
-    let b1 = b.toString().split(".")
-    let b1_max = 0
-    if (b1.length == 2) {
-        b1_max = b1[1].length
-    }
-
-    let c1 = c.toString().split(".")
-    let c1_max = 0
-    if (c1.length == 2) {
-        c1_max = c1[1].length
-    }
-
-    let max_len = 0
-    let max_val = 0
-    if (b1_max > c1_max) {
-        max_val = tens[b1_max - 1]
-        max_len = b1_max
-    } else {
-        max_len = c1_max
-        max_val = tens[c1_max - 1]
-    }
-
-    let fv = 0
-    if (max_len == 0) {
-        //console.log("non decimals")
-        max_val = 1
-        fv = b - c
-    } else {
-
-        fv = parseFloat((((b * max_val) - (c * max_val)) / max_val).toFixed(max_len))
-
-    }
-    //console.log(b*max_val,c*max_val)
-    return fv
-
-}
 
 async function WhereGet(collectionName, Field, data, DocId) {
     return new Promise(async (resolve, reject) => {
@@ -223,34 +205,25 @@ async function WhereGet(collectionName, Field, data, DocId) {
     });
 }
 
-
-
-// async function toBase64(ImgUrl) {
-//     const imageToBase64 = require('image-to-base64');
-
-//     return imageToBase64(ImgUrl) // Path to the image
-//         .then((response) => {
-//             return response; // "cGF0aC90by9maWxlLmpwZw=="
-//         })
-//         .catch((error) => {
-//             return error; // Logs an error if there was one
-//         })
-// }
-
-const ParamsToFirestoreFields = (QueryParams = {}, FieldTypes = { "index": "number" }) => {
+const ParamsToFirestoreFields = (
+    QueryParams = {},
+    FieldTypes = { index: "number" }
+) => {
     console.log(QueryParams);
 
-    let Limit, OrderBy = [], Index, Keyword, Where = [];
+    let Limit,
+        OrderBy = [],
+        Index,
+        Keyword,
+        Where = [];
 
     if (!Check(QueryParams["limit"])) {
         if (QueryParams["limit"] === "FALSE") {
             Limit = false;
-        }
-        else {
+        } else {
             Limit = Number(QueryParams["limit"]);
         }
-    }
-    else {
+    } else {
         Limit = 10;
     }
     if (!Check(QueryParams["sort_by"])) {
@@ -272,7 +245,7 @@ const ParamsToFirestoreFields = (QueryParams = {}, FieldTypes = { "index": "numb
 
     for (let index = 0; index < keys.length; index++) {
         const element = keys[index];
-        const Flag = !(FixedKeys.includes(element));
+        const Flag = !FixedKeys.includes(element);
 
         if (!Flag) {
             continue;
@@ -280,24 +253,29 @@ const ParamsToFirestoreFields = (QueryParams = {}, FieldTypes = { "index": "numb
         if (Check(QueryParams[element])) {
             continue;
         }
-        if (typeof QueryParams[element] !== 'object' && typeof QueryParams[element] === 'string') {
+        if (
+            typeof QueryParams[element] !== "object" &&
+            typeof QueryParams[element] === "string"
+        ) {
             Where.push(element, "==", QueryParams[element]);
             continue;
         }
         const type = Object.keys(QueryParams[element]);
         for (let i = 0; i < type.length && Flag; i++) {
             const elem = type[i];
-            QueryParams[element][elem] = TypeSetting(element, QueryParams[element][elem], FieldTypes);
+            QueryParams[element][elem] = TypeSetting(
+                element,
+                QueryParams[element][elem],
+                FieldTypes
+            );
             if (types.includes(elem)) {
                 if (elem === ">>") {
                     Where.push(element, "in", QueryParams[element][elem]);
-                }
-                else {
+                } else {
                     Where.push(element, elem, QueryParams[element][elem]);
                 }
-            }
-            else {
-                Where.push(element, "==", QueryParams[element][elem])
+            } else {
+                Where.push(element, "==", QueryParams[element][elem]);
             }
         }
     }
@@ -308,9 +286,9 @@ const ParamsToFirestoreFields = (QueryParams = {}, FieldTypes = { "index": "numb
         orderBy,
         Index,
         Where,
-        Keyword
-    }
-}
+        Keyword,
+    };
+};
 
 const TypeSetting = (FieldName, FieldData, FieldTypeObj) => {
     if (Check(FieldTypeObj[FieldName])) {
@@ -324,42 +302,40 @@ const TypeSetting = (FieldName, FieldData, FieldTypeObj) => {
         case "array":
             return FieldData.split(",");
         default:
-            return String(FieldData)
+            return String(FieldData);
     }
-}
+};
 const createCustomToken = async (UID) => {
-    return admin.auth().createCustomToken(UID)
-}
+    return admin.auth().createCustomToken(UID);
+};
 const verifyIdToken = async (idToken) => {
     console.log("verifyIdToken");
     return admin.auth().verifyIdToken(idToken);
-}
-
+};
 
 const revokeUserToken = async (uid) => {
-    await admin.auth().revokeRefreshTokens(uid)
+    await admin.auth().revokeRefreshTokens(uid);
     return 0;
-}
+};
 
 const createUser = async (displayName) => {
     function CreateRandomEmail(length) {
-        var result = '';
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var result = "";
+        var characters =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         var charactersLength = characters.length;
         for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() *
-                charactersLength));
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
         return result;
     }
-    const mail = CreateRandomEmail(10) + "@gmail.com"
+    const mail = CreateRandomEmail(10) + "@gmail.com";
     const user = await admin.auth().createUser({
         email: mail,
         displayName: displayName,
     });
     return user.uid;
-}
-
+};
 
 const CheckEntityExists = (res, Entity, EntityString) => {
     if (Check(Entity)) {
@@ -368,13 +344,12 @@ const CheckEntityExists = (res, Entity, EntityString) => {
             success: false,
         });
         return true;
-    }
-    else {
+    } else {
         return false;
     }
-}
+};
 
-module.exports= {
+module.exports = {
     Create,
     Update,
     Delete,
@@ -385,11 +360,10 @@ module.exports= {
     Check,
     CheckEntityExists,
 
-  //  increment,
+    //  increment,
     //arrayUnion,
     RandomId,
 
-    substract,
     ParamsToFirestoreFields,
     createKeywords,
 

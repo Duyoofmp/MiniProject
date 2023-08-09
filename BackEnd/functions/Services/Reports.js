@@ -27,7 +27,11 @@ async function Create(req, res) {
   }
   
   async function Read(req, res) {
-    const data = await dataHandling.Read("Report", req.body.DocId, req.body.index, req.body.Keyword);
+    const data = await dataHandling.Read("Report", req.body.DocId, req.body.index, req.body.Keyword,1000,["ManagerId","==",req.body.ManagerId]);
+    return res.json(data)
+  }
+  async function ReadReportsOfStaff(req, res) {
+    const data = await dataHandling.Read("Report",undefined,undefined,undefined,1000,["StaffId","==",req.body.StaffId],[false]);
     return res.json(data)
   }
 
@@ -36,5 +40,6 @@ async function Create(req, res) {
     Create,
     Update,
     Delete,
-    Read
+    Read,
+    ReadReportsOfStaff
   }

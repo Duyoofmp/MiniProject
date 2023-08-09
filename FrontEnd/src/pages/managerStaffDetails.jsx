@@ -1,20 +1,28 @@
 import React, { useState,useEffect } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import './managerStaffDetails.css';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
 import { publicGateway } from '../services/gateway';
 import Analytics from './StaffAnalytics';
+import Sidebar from '../components/Sidebar';
 
 
 const StaffDetails = () => {
   const [staffDetails, setStaffDetails] = useState({});
   const [openProducts, setOpenProducts] = useState([]);
   const [rejectedProducts, setRejectedProducts] = useState([]);
+  const [changeProducts, setChangeProducts] = useState([]);
+
+  
+  
 
   const [acceptedProducts, setAcceptedProducts] = useState([]);
-
+  const [data, setData] = useState([]); 
 
   const location = useLocation()
   useEffect(() => {
+  
     const token = localStorage.getItem('accessToken');
     console.log(token);
     publicGateway
@@ -24,7 +32,7 @@ const StaffDetails = () => {
         }
       })
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setStaffDetails(res.data);
       })
       .catch((err) => {
@@ -37,7 +45,7 @@ const StaffDetails = () => {
         }
       })
       .then((res) => {
-        console.log(res.data);
+       // console.log(res.data);
         setOpenProducts(res.data);
       })
       .catch((err) => {
@@ -50,7 +58,7 @@ const StaffDetails = () => {
         }
       })
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setAcceptedProducts(res.data);
       })
       .catch((err) => {
@@ -63,8 +71,42 @@ const StaffDetails = () => {
         }
       })
       .then((res) => {
-        console.log(res.data);
+       // console.log(res.data);
         setRejectedProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      publicGateway
+      .post('/staff/GetProductsOfStaff',{StaffId:location.state.StaffId,Status:"ChangeProduct"},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+       // console.log(res.data);
+        setChangeProducts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      publicGateway
+      .post('/staff/GetAnalyticsOfStaff',{StaffId:location.state.StaffId},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data,"fhfvhv");
+         setData ( [
+          { name: 'Assigned', data: res.data.Assigned },
+          { name: 'Completed', data: res.data.Completed },
+          { name: 'Rejected', data: res.data.Rejected },
+          { name: 'Accepted', data: res.data.Accepted },
+          { name: 'ChangeRequested', data: res.data.ChangeRequested },
+          
+        ]);
+       
       })
       .catch((err) => {
         console.log(err);
@@ -82,6 +124,7 @@ const StaffDetails = () => {
   };
 
   return (
+    <Sidebar>
     <div>
       <div className="customer-details-container">
         <div className="customer-profile">
@@ -127,6 +170,12 @@ const StaffDetails = () => {
               Rejected Products
             </li>
             <li
+              className={activeOption === 'changeProducts' ? 'active' : ''}
+              onClick={() => handleOptionClick('changeProducts')}
+            >
+              ChangeRequested Products
+            </li>
+            <li
               className={activeOption === 'analytics' ? 'active' : ''}
               onClick={() => handleOptionClick('analytics')}
             >
@@ -142,6 +191,7 @@ const StaffDetails = () => {
   <div>
     <h3>Assigned Products</h3>
     {openProducts.map((product, index) => (
+
       <div key={index} className="product-card1">
         <p>{product.Name}</p>
       </div>
@@ -162,7 +212,20 @@ const StaffDetails = () => {
         {activeOption === 'rejectedProducts' && (
           <div>
             <h3>Rejected Products</h3>
+            
             {rejectedProducts.map((product, index) => (
+            <div className="product-card1">
+              <p>{product.Name}</p>
+            </div>
+    ))}
+           
+          </div>
+        )}
+        {activeOption === 'changeProducts' && (
+          <div>
+            <h3> ChangedRequested Products</h3>
+            
+            {changeProducts.map((product, index) => (
             <div className="product-card1">
               <p>{product.Name}</p>
             </div>
@@ -172,12 +235,23 @@ const StaffDetails = () => {
         )}
         {activeOption === 'analytics' && (
           <div>
-            <p><Analytics/></p>
+            <p> <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <BarChart width={800} height={400} data={data}>
+        <CartesianGrid strokeDasharray="9 9" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="data" fill="#8884d8" />
+      </BarChart>
+    </div></p>
           </div>
         )}
       </div>
     </div>
+    </Sidebar>
   );
+
 };
 
 export default StaffDetails;

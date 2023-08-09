@@ -32,12 +32,16 @@ app.use(common.decodeIDToken)
     return Report.Delete(req, res);
   })
   
+  app.post('/ViewReportsOfStaff', async (req, res) => {
+    const Report = require("../Services/Reports");
+    return Report.ReadReportsOfStaff(req, res);
+  })
+  
+  
   app.post('/ViewReports', async (req, res) => {
     const Report = require("../Services/Reports");
     return Report.Read(req, res);
   })
-  
-  
 
 
 exports.report = functions.runWith({ memory: '128MB' }).region("asia-south1").https.onRequest(app);

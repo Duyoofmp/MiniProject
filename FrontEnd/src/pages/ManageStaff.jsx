@@ -10,6 +10,8 @@ import './ManageStaff.css';
 const Managestaff = () => {
   const [staffArray, setStaffArray] = useState([]);
   const navigate = useNavigate();
+  const [searchKey, setSearchKey] = useState("");
+
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -29,6 +31,28 @@ const Managestaff = () => {
       });
   }, []);
 
+  const search=async (K)=>{
+    const token = localStorage.getItem('accessToken');
+    console.log(token);
+    publicGateway
+      .post(
+        '/manager/ViewStaffs',
+        {Keyword:K},
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setStaffArray(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  
+  }
   const navigateToPage = (staffObj) => {
     console.log(staffObj.DocId)
     navigate('/managerStaffDetails',{state:{StaffId:staffObj.DocId}});
@@ -47,8 +71,8 @@ const Managestaff = () => {
       <div>
         <div className="staff">
           <h1 className="h2">staffs</h1>
-          <input type="text" placeholder='Search Staff'/>
-          <button className='search-btn'>search</button>
+          <input onChange={(e) => search(e.target.value)} type="text" placeholder='Search Staff'/>
+          
         </div>
           <button className="add-Staff" onClick={()=>{navigate('/AddStaff')}}>Add Staffs</button>
         

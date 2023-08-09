@@ -2,16 +2,20 @@ import React, { useState,useEffect } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 
 import { publicGateway } from '../services/gateway';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import './ProductDetails.css';
-import StaffSidebar from '../components/StaffSidebar';
+import Sidebar from '../components/Sidebar';
 import Analytics from './StaffAnalytics';
 
 const ProductDetails = () => {
   const [activeOption, setActiveOption] = useState('assignedStaff');
   const [product, setProduct] = useState({});
+  const [staffs, setStaffs] = useState([]);
+
   const navigate = useNavigate();
   const location = useLocation()
+  const [data, setData] = useState([]); 
 
 
   useEffect(() => {
@@ -32,6 +36,38 @@ const ProductDetails = () => {
       .catch((err) => {
         console.log(err);
       });
+      publicGateway
+      .post('/product/ViewAssignedStaffs',{ProductId:location.state.ProductId},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data);
+        setStaffs(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      publicGateway
+      .post('/product/GetAnalyticsOfProduct',{ProductId:location.state.ProductId},{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => {
+        console.log(res.data,"fhfvhv");
+         setData ( [
+          { name: 'Assigned', data: res.data.Assigned },
+          { name: 'Completed', data: res.data.Completed },
+          { name: 'Rejected', data: res.data.Rejected },
+          { name: 'Accepted', data: res.data.Accepted },
+        ]);
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const handleOptionClick = (option) => {
@@ -43,7 +79,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <StaffSidebar>
+    <Sidebar>
     <div>
       <div className="product-details-container">
         <div className="product-profile">
@@ -70,9 +106,7 @@ const ProductDetails = () => {
               <p>{product.Description}</p>
             </div>
           </div>
-          <button className="assign-staff-button" onClick={handleAssignStaffClick}>
-            Assign Staff
-          </button>
+          
         </div>
 
         <div className="product-nav">
@@ -97,22 +131,32 @@ const ProductDetails = () => {
         {activeOption === 'assignedStaff' && (
           <div>
             <h3>Assigned Staff</h3>
+            
+            {staffs.map((staff, index) => (
             <div className="staff-card1">
-              <p>Staff 1</p>
+              <p>{staff.Name}</p>
             </div>
-            <div className="staff-card1">
-              <p>Staff 2</p>
-            </div>
+    ))}
+
           </div>
         )}
         {activeOption === 'productAnalytics' && (
           <div>
-          <p><Analytics/></p>
+          <p><div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <BarChart width={600} height={400} data={data}>
+        <CartesianGrid strokeDasharray="9 9" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="data" fill="#8884d8" />
+      </BarChart>
+    </div></p>
         </div>
         )}
       </div>
     </div>
-    </StaffSidebar>
+    </Sidebar>
   );
 };
 

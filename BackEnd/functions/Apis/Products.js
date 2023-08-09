@@ -42,7 +42,23 @@ app.use(common.decodeIDToken)
     const AssignProduct = require("../Services/Products");
     return AssignProduct.AssignProduct(req, res);
   })
+  app.post('/ViewAssignedStaffs', async (req, res) => {
+    const AssignProduct = require("../Services/Products");
+    return AssignProduct.ViewAssignedStaffs(req, res);
+  })
 
+  app.post('/GetAnalyticsOfProduct', async (req, res) => {
+    const Product = require("../Services/Products");
+    return Product.AnalyticsOfProduct(req, res);
+  })
+  app.post('/GetAssignedContacts', async (req, res) => {
+    const Product = require("../Services/Products");
+    return Product.GetAssignedContacts(req, res);
+  })
+
+  
+
+  
 
 exports.product = functions.runWith({ memory: '128MB' }).region("asia-south1").https.onRequest(app);
 
