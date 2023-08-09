@@ -13,7 +13,7 @@ async function LoginStaff(req, res) {
     const staffcheck = await dataHandling.Read("Staffs", undefined, undefined, undefined, 1, ["Email", "==", Email, "Password", "==", Password])
     console.log(staffcheck[0].DocId)
     if (staffcheck.length === 1) {
-      const token = await com.GenerateToken({ StaffId: staffcheck[0].DocId, Role: "Staff", ...req.body })
+      const token = await com.GenerateToken({ ManagerId: staffcheck[0].ManagerId,StaffId: staffcheck[0].DocId, Role: "Staff", ...req.body })
       return res.json(token)
 
     } else {
@@ -34,12 +34,12 @@ async function Update(req, res) {
 
 async function Read(req, res) {
   console.log(req.body.StaffId)
-  const data = await dataHandling.Read("Staffs", req.body.StaffId, req.body.index, req.body.Keyword);
+  const data = await dataHandling.Read("Staffs", req.body.StaffId, req.body.index, req.body.Keyword,1000,["ManagerId","==",req.body.ManagerId]);
   return res.json(data)
 }
 async function RankList(req, res) {
   console.log(req.body.StaffId,"hgygyugyujg")
-  const data = await dataHandling.Read("Staffs", undefined, undefined, undefined,1000,undefined,[true,"Rank","desc"]);
+  const data = await dataHandling.Read("Staffs", undefined, undefined, undefined,1000,["ManagerId","==",req.body.ManagerId],[true,"Rank","desc"]);
   return res.json(data)
 }
 

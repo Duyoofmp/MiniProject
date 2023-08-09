@@ -6,6 +6,7 @@ import {
     FaRegChartBar,
     FaExclamationCircle,
     FaShoppingBag,
+    FaChartBar,
     FaThList,
     FaSignOutAlt
 }from "react-icons/fa";
@@ -42,6 +43,11 @@ const StaffSidebar = ({children}) => {
             name:"Profile",
             icon:<FaUserAlt/>
         },
+        {
+            path: "/StaffRankList",
+            name: "View Rank List",
+            icon: <FaChartBar />
+          },
         {
             path: "/",
             name: "Sign out",

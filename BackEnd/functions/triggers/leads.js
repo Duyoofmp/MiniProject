@@ -21,8 +21,12 @@ exports.AssignedProductsUpdate = functions.firestore
      if(Status!==BStatus){
         if(Status==="Accepted"){
             const a=await dataHandling.Read("Staffs",staffId)
-            if(a!==undefined){
+
+            if(a.Rank===undefined){
+        return await db.collection("Staffs").doc(staffId).update({Rank :1 })
+            }else{
         return await db.collection("Staffs").doc(staffId).update({Rank : a.Rank+1 })
+
             }
 
         }

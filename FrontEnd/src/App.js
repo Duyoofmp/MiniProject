@@ -28,6 +28,9 @@ import AssignProduct from './pages/assignProduct';
 import AssignContact from './pages/assignContacts';
 import ProductDetails from './pages/ProductDetails';
 import StaffAssignedProView from './pages/StaffAssignedProView';
+import StaffRankList from './pages/StaffRankList';
+
+
 
 
 const App = () => {
@@ -63,6 +66,9 @@ const App = () => {
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/product" element={<Product/>} />
           <Route path="/staffproductview" element={<StaffAssignedProView/>} />
+          <Route path="/StaffRankList" element={<StaffRankList/>} />
+
+          
 
           <Route path="/profile" element={<Profile />} />
           

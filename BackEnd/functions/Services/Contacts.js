@@ -41,7 +41,7 @@ async function Create(req, res) {
   }
   
   async function Read(req, res) {
-    const data = await dataHandling.Read("Contacts", req.body.DocId, req.body.index, req.body.Keyword);
+    const data = await dataHandling.Read("Contacts", req.body.DocId, req.body.index, req.body.Keyword,1000,["ManagerId","==",req.body.ManagerId]);
     return res.json(data)
   }
 

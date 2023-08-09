@@ -27,7 +27,7 @@ export default function ManagerSignup(){
         publicGateway.post('/manager/CreateManager',postData)
         .then((res)=>{
             console.log(res.data)
-            localStorage.setItem("accessToken", res.data.token)
+            localStorage.setItem("accessToken", res.data.Token)
             if(res.data.token!==undefined){
             return  navigate("/Dashboard")
             }
