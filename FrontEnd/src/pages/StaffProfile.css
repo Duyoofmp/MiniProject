@@ -1,3 +1,5 @@
+
+
 .profile {
     display: flex;
     flex-direction: column;
@@ -5,17 +7,19 @@
     text-align: center;
   }
   
-.profile-picture {
+  .profile-picture {
     width: 200px;
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
-}
+  }
   
-.profile-name input,
-.profile-bio textarea,
-.profile-details input {
+  .profile-name input,
+  .profile-designation input,
+  .profile-details input,
+  .profile-details textarea,
+  .profile-details input[type="checkbox"] {
     width: 100%;
     padding: 10px;
     border: none;
@@ -23,33 +27,34 @@
     background-color: #f5f5f5;
     font-size: 16px;
     margin-bottom: 10px;
-}
+  }
   
-.profile-details {
+  .profile-details {
     list-style-type: none;
     padding: 0;
     margin: 0;
     text-align: left;
-}
+  }
   
-.profile-details li {
+  .profile-details li {
     margin-bottom: 5px;
-}
+  }
   
-.profile-details strong {
+  .profile-details strong {
     font-weight: bold;
     margin-right: 5px;
-}
+  }
   
-.profile-details a {
+  .profile-details a {
     color: #007bff;
     text-decoration: none;
-}
+  }
   
-.profile-details a:hover {
+  .profile-details a:hover {
     text-decoration: underline;
-}
-button {
+  }
+  
+  button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -57,22 +62,23 @@ button {
     font-size: 16px;
     text-align: center;
     transition: background-color 0.3s ease;
-}
+  }
   
-.edit-button {
+  .edit-button {
     background-color: #007bff;
     color: #fff;
-}
+  }
   
-.edit-button:hover {
+  .edit-button:hover {
     background-color: #0056b3;
-}
+  }
   
-.save-button {
+  .save-button {
     background-color: #28a745;
     color: #fff;
-}
+  }
   
-.save-button:hover {
+  .save-button:hover {
     background-color: #218838;
-}
+  }
+  
