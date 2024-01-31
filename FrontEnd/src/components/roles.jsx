@@ -13,7 +13,7 @@ export default function Roles() {
         <span className="text">MANAGER</span>
       </a>
       <a href="/employeeLogin" className="role-btn staff">
-        <span className="icon">
+        <span classN    ame="icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M20 12c0 2.206-1.794 4-4 4s-4-1.794-4-4V6c0-2.206 1.794-4 4-4s4 1.794 4 4zm2 0v6c0 3.314-2.686 6-6 6H8c-3.314 0-6-2.686-6-6V6C2 2.686 4.686 0 8 0h8c3.314 0 6 2.686 6 6zm-8-6h-2v2h2V6zm0 4h-2v2h2v-2z" />
           </svg>

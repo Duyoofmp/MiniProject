@@ -47,7 +47,7 @@ const App = () => {
           <Route path="/ViewChangeRequest" element={<ViewChangeRequest />} />
           <Route path="/ViewRankList" element={<ViewRankList />} />
           <Route path="/AddStaff" element={<AddStaff />} />
-          <Route path="/AddProduct" element={<AddProduct />} />
+          <Route path="/AddProducts*" element={<AddProduct />} />
           <Route path="/ReportIssue" element={<ReportIssue />} />
 
           <Route path="/AddContacts" element={<AddContacts />} />

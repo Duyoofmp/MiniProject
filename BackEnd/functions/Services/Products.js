@@ -64,7 +64,7 @@ async function ViewAssignedStaffs(req, res) {
   
 
   const pro = await db.collection("Leads").where("ProductId","==",req.body.ProductId).get();
-  pro.forEach(docs => {
+  pro.forEach(docs => { 
     temp.push(dataHandling.Read("Staffs", docs.data().StaffId))
   })
   return res.json(await Promise.all(temp))

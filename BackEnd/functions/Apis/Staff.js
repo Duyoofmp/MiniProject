@@ -17,10 +17,10 @@ app.use(common.decodeIDToken)
 
 
 
-  app.post('/UpdateStaff', async (req, res) => {
-    const Staff = require("../Services/Staff");
-    return Staff.Update(req, res);
-  })
+    app.post('/UpdateStaff', async (req, res) => {
+      const Staff = require("../Services/Staff");
+      return Staff.Update(req, res);
+    })
 
   app.post('/ViewStaffs', async (req, res) => {
     const Staff = require("../Services/Staff");
